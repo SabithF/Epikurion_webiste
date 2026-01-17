@@ -10,6 +10,11 @@ export default {
         urbanist: ["Urbanist", "sans-serif"],
         messiri: ["El Messiri", "sans-serif"],
       },
+
+      colors: {
+        yellowPrimary: "#d2ae6d"
+      },
+
       keyframes: {
         heroTitle: {
           "0%": { opacity: "0", transform: "translateY(16px)" },
