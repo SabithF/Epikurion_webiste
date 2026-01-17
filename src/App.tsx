@@ -11,10 +11,10 @@ function App() {
     <>
 
       <BrowserRouter>
-        <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/origin' element={<Origin />} />
-      </Routes>
+          <Routes>
+            <Route path='/' element={<Home />} />
+          <Route path='/origin' element={<Origin />} />
+          </Routes>
     
       </BrowserRouter>
 
