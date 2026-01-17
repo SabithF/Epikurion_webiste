@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 type Banner = {
   imageSrc: string;
@@ -6,6 +7,7 @@ type Banner = {
   headText: string;
   subText: string;
   mainImg?: string;
+  link?: string;
 };
 
 const bannerDetails: Banner[] = [
@@ -15,34 +17,41 @@ const bannerDetails: Banner[] = [
     headText: "",
     subText: "",
     mainImg: "/assets/logo/logo.png",
+    link: "/",
   },
   {
     imageSrc: "/assets/banners/banner-2.png",
     altText: "banner-2",
     headText: "Origin",
     subText: "Embark on an epic journey with us.",
+    link: "/origin",
   },
   {
     imageSrc: "/assets/banners/banner-3.png",
     altText: "banner-3",
     headText: "Harvest",
     subText: "Embark on an epic journey with us.",
+    link: "/harvest",
   },
   {
     imageSrc: "/assets/banners/banner-4.png",
     altText: "banner-4",
     headText: "Epikurion Grove",
     subText: "Embark on an epic journey with us.",
+    link: "/grove",
   },
   {
     imageSrc: "/assets/banners/banner-5.png",
     altText: "contact",
     headText: "Contact",
     subText: "Embark on an epic journey with us.",
+    link: "/contact",
   },
 ];
 
 const Home: React.FC = () => {
+  const navigate = useNavigate();
+
   const [active, setActive] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -65,13 +74,22 @@ const Home: React.FC = () => {
     window.setTimeout(() => setIsPaused(false), 8000);
   };
 
-  const touchStartX = useRef<number | null>(null);
   const wheelLock = useRef(false);
+  const touchStartX = useRef<number | null>(null);
   const dragStartX = useRef<number | null>(null);
   const dragging = useRef(false);
+  const moved = useRef(false);
 
   const onTouchStart: React.TouchEventHandler<HTMLElement> = (e) => {
     touchStartX.current = e.touches[0]?.clientX ?? null;
+    moved.current = false;
+  };
+
+  const onTouchMove: React.TouchEventHandler<HTMLElement> = (e) => {
+    const startX = touchStartX.current;
+    if (startX === null) return;
+    const x = e.touches[0]?.clientX ?? startX;
+    if (Math.abs(x - startX) > 8) moved.current = true;
   };
 
   const onTouchEnd: React.TouchEventHandler<HTMLElement> = (e) => {
@@ -106,11 +124,14 @@ const Home: React.FC = () => {
   const onMouseDown: React.MouseEventHandler<HTMLElement> = (e) => {
     dragging.current = true;
     dragStartX.current = e.clientX;
+    moved.current = false;
   };
 
   const onMouseMove: React.MouseEventHandler<HTMLElement> = (e) => {
     if (!dragging.current || dragStartX.current === null) return;
+
     const delta = e.clientX - dragStartX.current;
+    if (Math.abs(delta) > 8) moved.current = true;
 
     if (Math.abs(delta) > 70) {
       userAction(() => (delta < 0 ? next() : prev()));
@@ -124,11 +145,21 @@ const Home: React.FC = () => {
     dragStartX.current = null;
   };
 
+  const onBannerClick: React.MouseEventHandler<HTMLElement> = () => {
+    if (!current.link) return;
+    if (moved.current) return; // don’t navigate if the user dragged/swiped
+    navigate(current.link);
+  };
+
+  const cursorClass = current.link ? "cursor-pointer" : "cursor-grab active:cursor-grabbing";
+
   return (
     <section
-      className="relative h-screen w-screen overflow-hidden cursor-grab active:cursor-grabbing"
+      className={`relative h-screen w-screen overflow-hidden ${cursorClass}`}
+      onClick={onBannerClick}
       onWheel={onWheel}
       onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
       onMouseDown={onMouseDown}
       onMouseMove={onMouseMove}
@@ -146,12 +177,7 @@ const Home: React.FC = () => {
       >
         {bannerDetails.map((b, i) => (
           <div key={i} className="h-screen w-screen flex-shrink-0">
-            <img
-              src={b.imageSrc}
-              alt={b.altText}
-              className="h-full w-full object-cover"
-              draggable={false}
-            />
+            <img src={b.imageSrc} alt={b.altText} className="h-full w-full object-cover" draggable={false} />
           </div>
         ))}
       </div>
@@ -160,22 +186,48 @@ const Home: React.FC = () => {
 
       <div className="absolute inset-0 z-20">
         <div className="p-4 sm:p-6 lg:p-8 flex justify-between items-center">
-          <img src="/assets/logo/logo.png" alt="Logo" className="h-20 sm:h-24" />
+          <img
+            src="/assets/logo/logo.png"
+            alt="Logo"
+            className="h-20 sm:h-24 cursor-pointer"
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate("/");
+            }}
+          />
+
           <div className="flex gap-4 px-4 lg:px-8 font-urbanist text-white">
-            <div className="uppercase font-bold hover:text-blue-300 cursor-pointer">
+            <button
+              className="uppercase font-bold hover:text-blue-300 cursor-pointer"
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            >
               Menu
-            </div>
-            <div className="uppercase font-semibold hover:text-blue-300 cursor-pointer">
+            </button>
+            <button
+              className="uppercase font-semibold hover:text-blue-300 cursor-pointer"
+              onClick={(e) => {
+                e.stopPropagation();
+                window.open("https://facebook.com", "_blank");
+              }}
+            >
               FB
-            </div>
-            <div className="uppercase font-semibold hover:text-blue-300 cursor-pointer">
+            </button>
+            <button
+              className="uppercase font-semibold hover:text-blue-300 cursor-pointer"
+              onClick={(e) => {
+                e.stopPropagation();
+                window.open("https://instagram.com", "_blank");
+              }}
+            >
               In
-            </div>
+            </button>
           </div>
         </div>
       </div>
 
-      <div className="relative z-10 flex h-full items-center justify-center px-6">
+      <div className="relative z-20 flex h-full items-center justify-center px-6 select-none pointer-events-none">
         {current.mainImg ? (
           <img
             src={current.mainImg}
@@ -196,7 +248,10 @@ const Home: React.FC = () => {
       </div>
 
       <button
-        onClick={() => userAction(prev)}
+        onClick={(e) => {
+          e.stopPropagation();
+          userAction(prev);
+        }}
         className="absolute left-4 top-1/2 z-30 -translate-y-1/2 text-white/80 hover:text-white text-4xl select-none"
         aria-label="Previous banner"
       >
@@ -204,7 +259,10 @@ const Home: React.FC = () => {
       </button>
 
       <button
-        onClick={() => userAction(next)}
+        onClick={(e) => {
+          e.stopPropagation();
+          userAction(next);
+        }}
         className="absolute right-4 top-1/2 z-30 -translate-y-1/2 text-white/80 hover:text-white text-4xl select-none"
         aria-label="Next banner"
       >
@@ -215,7 +273,10 @@ const Home: React.FC = () => {
         {bannerDetails.map((_, i) => (
           <button
             key={i}
-            onClick={() => userAction(() => setActive(i))}
+            onClick={(e) => {
+              e.stopPropagation();
+              userAction(() => setActive(i));
+            }}
             className={[
               "h-2 w-2 rounded-full transition-all",
               i === active ? "bg-white scale-110" : "bg-white/40 hover:bg-white/70",
