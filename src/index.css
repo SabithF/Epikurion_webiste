@@ -11,3 +11,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* Liana */
+@font-face {
+  font-family: "cursiveFont";
+  src: url("/fonts/liana.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}

@@ -9,6 +9,8 @@ export default {
         mont: ["Montserrat", "sans-serif"],
         urbanist: ["Urbanist", "sans-serif"],
         messiri: ["El Messiri", "sans-serif"],
+        dancing: ["Dancing Script", "cursive"],
+        cursiveFont: ["cursiveFont", "cursive"],
       },
 
       colors: {

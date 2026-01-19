@@ -17,6 +17,7 @@ const Harvest: React.FC = () => {
   return (
     <main className="min-h-screen w-full overflow-hidden font-messiri">
       <div className="min-h-screen">
+        
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
           <header className="absolute pt-10 z-30">
             <motion.img
