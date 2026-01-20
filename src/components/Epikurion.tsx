@@ -25,7 +25,8 @@ const slideInRight: Variants = {
 
 const EpikurionPage: React.FC = () => {
   return (
-    <main className="min-h-screen overflow-hidden font-messiri">
+    <main className="min-h-screen overflow-hidden font-messiri overflow-hidden">
+        
       <header className="absolute pt-10 z-30 mx-auto px-4 sm:px-6 lg:px-8">
         <motion.img
           src="/assets/logo/e-logo.png"
@@ -157,7 +158,8 @@ const EpikurionPage: React.FC = () => {
             </motion.h2>
 
             <motion.p
-              className="w-[80%] mt-8 text-gray-800/60 font-messiri text-base sm:text-xl lg:text-3xl leading-8 max-lg:w-full max-lg:text-base max-lg:leading-relaxed"
+              className="w-[80%] mt-8 text-gray-800/60 font-messiri  mb-8
+              text-base sm:text-xl lg:text-3xl leading-8 max-lg:w-full max-lg:text-base max-lg:leading-relaxed"
               variants={fadeUp}
               initial="hidden"
               whileInView="show"
@@ -174,23 +176,34 @@ const EpikurionPage: React.FC = () => {
               is offered only by special request. Each bottle is individually selected
               from a carefully chosen harvest, intended for private collections, refined
               gifting, and occasions of lasting significance.
+
             </motion.p>
           </div>
         </div>
 
-        <motion.div
-          className="absolute z-20 left-[35%] h-full text-[#314036] -translate-y-[200px] text-black max-lg:static 
-          max-lg:px-6 max-lg:pb-10 max-lg:translate-y-0"
+       <motion.div
+          className="
+            absolute
+            z-30
+            left-[35%]
+            top-[90%]
+            -translate-y-1/2
+            text-[#314036]
+            max-lg:static
+            max-lg:translate-y-0
+            max-lg:px-6
+            max-lg:pb-10
+          "
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.6 }}
+          viewport={{ once: true }}
         >
-          <p className="z-20 font-dancing text-8xl max-lg:text-5xl">1 liter</p>
-          <p className="z-20 text-3xl max-lg:text-lg">Extra Virgin Olive Oil</p>
+          <p className="font-dancing text-8xl max-lg:text-5xl">1 liter</p>
+          <p className="text-3xl max-lg:text-lg">Extra Virgin Olive Oil</p>
         </motion.div>
 
-        <div className="absolute bottom-0 left-0 w-full h-[16%] bg-white z-0 max-lg:h-16" />
+        <div className="absolute bottom-0 left-0 w-full h-[14%] bg-white z-0 max-lg:h-16" />
       </section>
 
 
@@ -274,7 +287,7 @@ const EpikurionPage: React.FC = () => {
             <motion.img
               src="/assets/img/epik/Lemon and Garlic.png"
               alt="lemon"
-              className="absolute -translate-y-64 translate-x-10 z-10 w-[32%] max-lg:static max-lg:w-[60%] max-lg:translate-x-0 max-lg:translate-y-0"
+              className="absolute -translate-y-64 translate-x-10 z-10 w-[80%] max-lg:static max-lg:w-[70%] max-lg:translate-x-0 max-lg:translate-y-0"
               variants={slideInLeft}
               initial="hidden"
               whileInView="show"
@@ -288,7 +301,7 @@ const EpikurionPage: React.FC = () => {
       {/* 750ml STRIP */}
       <div className="relative py-4 overflow-visible max-lg:py-10">
         <motion.div
-          className="flex w-[70%] flex-col justify-center items-end gap-4 bg-[#d2ae6d] mr-0 py-4 pr-44 rounded-r-3xl max-lg:w-full max-lg:items-start max-lg:px-6 max-lg:pr-6"
+          className="flex w-[70%] flex-col justify-center items-end gap-4 bg-[#d2ae6d] mr-0 py-4 pr-52 rounded-r-3xl max-lg:w-full max-lg:items-start max-lg:px-6 max-lg:pr-6"
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
@@ -312,8 +325,9 @@ const EpikurionPage: React.FC = () => {
       </div>
 
       {/* ALL BOTTLES */}
-      <section className="relative py-5 w-full flex flex-col justify-center items-center uooercase">
-        <div className="pt-48 max-lg:pt-24">
+      <section className="relative py-5 w-full flex flex-col justify-center items-center uppercase">
+
+        <div className="pt-48 max-lg:pt-24 px-20">
           <motion.img
             src="/assets/img/epik/all-bottles.png"
             alt="all bottles"
@@ -322,7 +336,7 @@ const EpikurionPage: React.FC = () => {
             whileInView="show"
             viewport={{ once: true, amount: 0.3 }}
             draggable={false}
-            className="max-lg:w-[95%] max-lg:mx-auto"
+            className="max-lg:w-[50%] max-lg:mx-auto"
           />
         </div>
 
@@ -364,7 +378,7 @@ const EpikurionPage: React.FC = () => {
       </section>
 
       {/* WHY CHOOSE */}
-      <section className="uppercase px-16 pt-16 text-base sm:text-xl lg:text-2xl flex flex-col ml-16 max-lg:px-6 max-lg:ml-0">
+      <section className=" uppercase px-16 pt-16 text-base sm:text-xl lg:text-2xl flex flex-col ml-16 max-lg:px-6 max-lg:ml-0 ">
         <motion.h1
           className="text-yellowPrimary text-base sm:text-xl lg:text-3xl pb-1"
           variants={fadeUp}
@@ -376,7 +390,7 @@ const EpikurionPage: React.FC = () => {
         </motion.h1>
 
         <motion.div
-          className="text-black w-[90%] tracking-wider max-lg:w-full"
+          className="text-black w-[90%] tracking-wider max-lg:w-full overflow-hidden"
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
@@ -392,14 +406,20 @@ const EpikurionPage: React.FC = () => {
         </motion.div>
 
         
-        <motion.img
+        
+      </section>
+
+     <section className="relative min-h-screen">
+         <motion.img
+         
           src="/assets/img/epik/1litre.png"
           alt="One liter bottle"
-          className="w-[50%] rotate-[45deg] -translate-y-[700px] translate-x-[400px] items-center flex justify-center
-                     max-lg:w-[80%] max-lg:rotate-0 max-lg:translate-x-0 max-lg:translate-y-0 max-lg:mx-auto max-lg:mt-10"
+          className="w-[45%] rotate-[45deg] -translate-y-[600px] translate-x-[400px] items-center flex justify-center
+                     max-lg:w-[75%] max-lg:rotate-0 max-lg:translate-x-0 max-lg:translate-y-0 max-lg:mx-auto max-lg:mt-10
+                     absolute overflow-hidden"
          
         />
-      </section>
+     </section>
     </main>
   );
 };
