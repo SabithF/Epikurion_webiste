@@ -54,6 +54,8 @@ const Home: React.FC = () => {
 
   const [active, setActive] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [navActive, setNavActive] = useState(false);
+  
 
   const total = bannerDetails.length;
   const current = useMemo(() => bannerDetails[active], [active]);
@@ -201,6 +203,7 @@ const Home: React.FC = () => {
               className="uppercase font-bold hover:text-blue-300 cursor-pointer"
               onClick={(e) => {
                 e.stopPropagation();
+                setNavActive(!navActive);
               }}
             >
               Menu
@@ -226,6 +229,49 @@ const Home: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {navActive && (
+        <section className="absolute w-screen text-white h-screen flex flex-col bg-black z-50">
+
+        <div className="flex flex-1">
+          <div className="flex-1 flex w-full h-full items-center justify-center bg-[#4a2c2c] hover:bg-white/20 transition-all text-white tracking-widest">
+            Home
+          </div>
+          <div className="flex-1 flex items-center justify-center bg-[#9b2d5d] text-white tracking-widest">
+            Origin
+          </div>
+          <div className="flex-1 flex items-center justify-center bg-[#1f6f84] text-white tracking-widest">
+            Harvest
+          </div>
+
+        </div>
+
+        <div className="flex flex-1">
+          <div className="flex-1 flex flex-col items-center justify-center bg-[#5a3a35] text-white">
+            <p className="tracking-[0.4em] text-2xl">Epikurion Grove</p>
+            <p className="text-xs mt-2 opacity-70">SINCE 1929</p>
+          </div>
+        </div>
+
+
+        <div className="flex flex-1">
+          <div className="flex-1 flex items-center justify-center bg-[#4a2c2c] text-white tracking-widest">
+            Contact
+          </div>
+          <div className="flex-1 flex items-center justify-center bg-[#9b2d5d] text-white tracking-widest">
+            Gallery
+          </div>
+          <div className="flex-1 flex items-center justify-center bg-[#1f6f84] text-white tracking-widest">
+            More 
+          </div>
+
+        </div>
+
+
+
+
+      </section>
+      )}
 
       <div className="relative z-20 flex h-full items-center justify-center px-6 select-none pointer-events-none">
         {current.mainImg ? (
