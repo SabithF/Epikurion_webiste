@@ -38,7 +38,7 @@ const bannerDetails: Banner[] = [
     altText: "banner-4",
     headText: "Epikurion Grove",
     subText: "Embark on an epic journey with us.",
-    link: "/grove",
+    link: "/epikurion",
   },
   {
     imageSrc: "/assets/banners/banner-5.png",
@@ -182,7 +182,7 @@ const Home: React.FC = () => {
         ))}
       </div>
 
-      <div className="absolute inset-0 bg-black/25" />
+      <div className="absolute inset-0" />
 
       <div className="absolute inset-0 z-20">
         <div className="p-4 sm:p-6 lg:p-8 flex justify-between items-center">
@@ -196,7 +196,7 @@ const Home: React.FC = () => {
             }}
           />
 
-          <div className="flex gap-4 px-4 lg:px-8 font-urbanist text-white">
+          <div className="flex gap-4 px-4 lg:px-8 font-urbanist text-white bg-slate-800/30 rounded-md py-2">
             <button
               className="uppercase font-bold hover:text-blue-300 cursor-pointer"
               onClick={(e) => {
