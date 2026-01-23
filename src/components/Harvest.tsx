@@ -163,15 +163,12 @@ const Harvest: React.FC = () => {
 
               <motion.div
                 className="lg:col-span-5 flex justify-center lg:justify-end lg:sm:-translate-y-32"
-                initial={{ opacity: 0, y: 18, rotate: 14 }}
-                whileInView={{ opacity: 1, y: 0, rotate: 20 }}
-                viewport={{ once: true, amount: 0.25 }}
-                transition={{ duration: 0.9, ease }}
+                
               >
                 <motion.img
-                  src="/assets/img/olive.png"
+                  src="/assets/img/harvest/olive-bunch.png"
                   alt="Olive"
-                  className="rotate-[20deg] w-64 sm:w-80 lg:w-[500px] motion-safe:animate-bounce -mt-10 sm:-mt-16 lg:-mt-72 drop-shadow-2xl"
+                  className=" w-64 sm:w-80 lg:w-[500px] -mt-10 sm:-mt-16 lg:-mt-72 drop-shadow-2xl"
                   draggable={false}
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.25 }}

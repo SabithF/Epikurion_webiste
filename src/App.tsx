@@ -5,6 +5,7 @@ import Origin from './components/Origin'
 import Harvest from './components/Harvest';
 import EpikurionPage from './components/Epikurion';
 import NavScreen from './components/NavScreen';
+import ContactPage from './components/Contact';
 
 
 function App() {
@@ -20,6 +21,9 @@ function App() {
           <Route path='/harvest' element={<Harvest />} />
           <Route path='/epikurion' element={<EpikurionPage />} />
           <Route path='/nav' element={<NavScreen />} />
+          <Route path='/contact' element={<ContactPage />} />
+          <Route path='*' element={<Home />} />
+          
 
 
         </Routes>

@@ -4,48 +4,97 @@ import { useNavigate } from "react-router-dom";
 type Banner = {
   imageSrc: string;
   altText: string;
-  headText: string;
-  subText: string;
+  headText: React.ReactNode; 
+  subText: React.ReactNode;  
   mainImg?: string;
   link?: string;
 };
 
+const LOGO_CENTER = "/assets/logo/logo.png";
+
 const bannerDetails: Banner[] = [
   {
     imageSrc: "/assets/banners/main-banner.png",
-    altText: "main-banner",
-    headText: "",
-    subText: "",
-    mainImg: "/assets/logo/logo.png",
-    link: "/",
+    altText: "main-banner", 
+    headText: (
+      <>
+        Welcome to <span className="text-[#d2ae6d]">Epikurion</span>
+      </>
+    ),
+    subText: (
+      <>
+        Explore our story, harvests,C and <span className="text-white font-bold">heritage</span>.
+      </>
+    ),
+
+    mainImg: LOGO_CENTER,
+    link: "/epikurion",
+    
   },
   {
     imageSrc: "/assets/banners/banner-2.png",
     altText: "banner-2",
-    headText: "Origin",
-    subText: "Embark on an epic journey with us.",
+    
+    headText: (
+      <>
+        <span className="text-[#d2ae6d]">Origin</span>
+      </>
+    ),
+    subText: (
+      <>
+        <span className="text-white">Single Estate . Limited Harvest . Greek Excellence</span>
+      </>
+    ),
     link: "/origin",
   },
   {
     imageSrc: "/assets/banners/banner-3.png",
     altText: "banner-3",
-    headText: "Harvest",
-    subText: "Embark on an epic journey with us.",
+  
+    headText: (
+      <>
+
+      <span className="font-dancing italic text-md text-[#d2ae6d]">the</span>
+        <span className="">Harvest</span>
+      </>
+    ),
+    subText: (
+      <>
+        
+      </>
+    ),
     link: "/harvest",
   },
   {
-    imageSrc: "/assets/banners/banner-4.png",
+    imageSrc: "/assets/banners/banner-41.png",
     altText: "banner-4",
-    headText: "Epikurion Grove",
-    subText: "Embark on an epic journey with us.",
-    link: "/epikurion",
+    headText: (
+      <>
+       <span className="text-[#d2ae6d] shadow-xl"> A limited Gift Edition <br /></span>
+
+      </>
+    ),
+    subText: (
+      <>
+       <span className="text-white"> Reserved for Special Request</span> 
+      </>
+    ),
+   
   },
   {
     imageSrc: "/assets/banners/banner-5.png",
     altText: "contact",
-    headText: "Contact",
-    subText: "Embark on an epic journey with us.",
-    link: "/contact",
+    headText: (
+      <>
+        <span className="text-[#d2ae6d] shadow-xl">Contact</span>
+      </>
+    ),
+    subText: (
+      <>
+        Let’s talk — we’re <span className="text-black font-bold"><span className="text-black">here</span></span> <span className="text-black">to help.</span>
+      </>
+    ),
+    
   },
 ];
 
@@ -55,7 +104,6 @@ const Home: React.FC = () => {
   const [active, setActive] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [navActive, setNavActive] = useState(false);
-  
 
   const total = bannerDetails.length;
   const current = useMemo(() => bannerDetails[active], [active]);
@@ -65,15 +113,14 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     if (isPaused) return;
-    const id = window.setInterval(next, 6500);
+    const id = window.setInterval(next, 8000);
     return () => window.clearInterval(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPaused, total]);
 
   const userAction = (fn: () => void) => {
     setIsPaused(true);
     fn();
-    window.setTimeout(() => setIsPaused(false), 8000);
+    window.setTimeout(() => setIsPaused(false), 8500);
   };
 
   const wheelLock = useRef(false);
@@ -149,11 +196,21 @@ const Home: React.FC = () => {
 
   const onBannerClick: React.MouseEventHandler<HTMLElement> = () => {
     if (!current.link) return;
-    if (moved.current) return; // don’t navigate if the user dragged/swiped
+    if (moved.current) return;
     navigate(current.link);
   };
 
   const cursorClass = current.link ? "cursor-pointer" : "cursor-grab active:cursor-grabbing";
+
+  const toggleMenu = (e?: React.SyntheticEvent) => {
+    e?.stopPropagation();
+    setNavActive((v) => !v);
+  };
+
+  const go = (path: string) => {
+    setNavActive(false);
+    navigate(path);
+  };
 
   return (
     <section
@@ -187,44 +244,34 @@ const Home: React.FC = () => {
       <div className="absolute inset-0" />
 
       <div className="absolute inset-0 z-20">
-        <div className="p-4 sm:p-6 lg:p-8 flex justify-between items-center">
-          <img
-            src="/assets/logo/logo.png"
-            alt="Logo"
-            className="h-20 sm:h-24 cursor-pointer"
-            onClick={(e) => {
-              e.stopPropagation();
-              navigate("/");
-            }}
-          />
+        <div className="p-4 sm:p-6 lg:p-8 flex justify-between items-start">
+          {/* ✅ Remove top header logo ONLY on first banner */}
+          <div className="flex flex-col items-start gap-2">
+            {active !== 0 && (
+              <img
+                src="/assets/logo/e-logo.png"
+                alt="Logo"
+                className="h-16 sm:h-16 cursor-pointer"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate("/");
+                }}
+              />
+            )}
 
-          <div className="flex gap-4 px-4 lg:px-8 font-urbanist text-white bg-slate-800/30 rounded-md py-2">
+            {/* ✅ Hamburger stays (professional, clean) */}
             <button
-              className="uppercase font-bold hover:text-blue-300 cursor-pointer"
-              onClick={(e) => {
-                e.stopPropagation();
-                setNavActive(!navActive);
-              }}
+              type="button"
+              aria-label={navActive ? "Close menu" : "Open menu"}
+              onClick={toggleMenu}
+              className="group relative flex h-10 w-10 items-center translate-x-3 justify-center rounded-md bg-black/10 hover:bg-white/20 transition-all"
             >
-              Menu
-            </button>
-            <button
-              className="uppercase font-semibold hover:text-blue-300 cursor-pointer"
-              onClick={(e) => {
-                e.stopPropagation();
-                window.open("https://facebook.com", "_blank");
-              }}
-            >
-              FB
-            </button>
-            <button
-              className="uppercase font-semibold hover:text-blue-300 cursor-pointer"
-              onClick={(e) => {
-                e.stopPropagation();
-                window.open("https://instagram.com", "_blank");
-              }}
-            >
-              In
+              <span className="absolute inset-0 rounded-md ring-1 ring-white/20 group-hover:ring-white/30 transition-all" />
+              <span className="relative flex flex-col gap-[5px]">
+                <span className={`h-[2px] w-5 bg-white transition-all ${navActive ? "translate-y-[7px] rotate-45" : ""}`} />
+                <span className={`h-[2px] w-5 bg-white transition-all ${navActive ? "opacity-0" : "opacity-100"}`} />
+                <span className={`h-[2px] w-5 bg-white transition-all ${navActive ? "-translate-y-[7px] -rotate-45" : ""}`} />
+              </span>
             </button>
           </div>
         </div>
@@ -232,45 +279,52 @@ const Home: React.FC = () => {
 
       {navActive && (
         <section className="absolute w-screen text-white h-screen flex flex-col bg-black z-50">
-
-        <div className="flex flex-1">
-          <div className="flex-1 flex w-full h-full items-center justify-center bg-[#4a2c2c] hover:bg-white/20 transition-all text-white tracking-widest">
-            Home
-          </div>
-          <div className="flex-1 flex items-center justify-center bg-[#9b2d5d] text-white tracking-widest">
-            Origin
-          </div>
-          <div className="flex-1 flex items-center justify-center bg-[#1f6f84] text-white tracking-widest">
-            Harvest
-          </div>
-
-        </div>
-
-        <div className="flex flex-1">
-          <div className="flex-1 flex flex-col items-center justify-center bg-[#5a3a35] text-white">
-            <p className="tracking-[0.4em] text-2xl">Epikurion Grove</p>
-            <p className="text-xs mt-2 opacity-70">SINCE 1929</p>
-          </div>
-        </div>
-
-
-        <div className="flex flex-1">
-          <div className="flex-1 flex items-center justify-center bg-[#4a2c2c] text-white tracking-widest">
-            Contact
-          </div>
-          <div className="flex-1 flex items-center justify-center bg-[#9b2d5d] text-white tracking-widest">
-            Gallery
-          </div>
-          <div className="flex-1 flex items-center justify-center bg-[#1f6f84] text-white tracking-widest">
-            More 
+          <div className="flex flex-1">
+            <div
+              className="flex-1 flex w-full h-full items-center justify-center bg-[#4a2c2c] hover:bg-white/20 transition-all text-white tracking-widest cursor-pointer"
+              onClick={() => go("/")}
+            >
+              Home
+            </div>
+            <div
+              className="flex-1 flex items-center justify-center bg-[#9b2d5d] text-white tracking-widest cursor-pointer hover:bg-white/20 transition-all"
+              onClick={() => go("/origin")}
+            >
+              Origin
+            </div>
+            <div
+              className="flex-1 flex items-center justify-center bg-[#1f6f84] text-white tracking-widest cursor-pointer hover:bg-white/20 transition-all"
+              onClick={() => go("/harvest")}
+            >
+              Harvest
+            </div>
           </div>
 
-        </div>
+          <div className="flex flex-1">
+            <div
+              className="flex-1 flex flex-col items-center justify-center bg-[#5a3a35] text-white cursor-pointer hover:bg-white/20 transition-all"
+              onClick={() => go("/epikurion")}
+            >
+              <p className="tracking-[0.4em] text-2xl">Epikurion Grove</p>
+              <p className="text-xs mt-2 opacity-70">SINCE 1929</p>
+            </div>
+          </div>
 
-
-
-
-      </section>
+          <div className="flex flex-1">
+            <div
+              className="flex-1 flex items-center justify-center bg-[#4a2c2c] text-white tracking-widest cursor-pointer hover:bg-white/20 transition-all"
+              onClick={() => go("/contact")}
+            >
+              Contact
+            </div>
+            <div className="flex-1 flex items-center justify-center bg-[#9b2d5d] text-white tracking-widest">
+              Gallery
+            </div>
+            <div className="flex-1 flex items-center justify-center bg-[#1f6f84] text-white tracking-widest">
+              More
+            </div>
+          </div>
+        </section>
       )}
 
       <div className="relative z-20 flex h-full items-center justify-center px-6 select-none pointer-events-none">
@@ -283,7 +337,8 @@ const Home: React.FC = () => {
           />
         ) : (
           <div key={active} className="text-center text-white">
-            <h1 className="font-urbanist uppercase tracking-[0.22em] text-3xl sm:text-7xl opacity-0 translate-y-4 animate-heroTitle">
+            {/* ✅ Messiri font, and text is editable with spans */}
+            <h1 className="font-messiri uppercase tracking-[0.22em] text-3xl sm:text-7xl opacity-0 translate-y-4 animate-heroTitle">
               {current.headText}
             </h1>
             <p className="mt-4 text-[#d2ae6d] font-semibold font-messiri text-xs sm:text-sm uppercase tracking-[0.35em] opacity-0 translate-y-3 animate-heroSub">
