@@ -3,7 +3,7 @@ import React from "react";
 const NavScreen: React.FC = () => {
     return (
         <section>
-            Nav scteen
+            Nav screen
         </section>
     )
 }
