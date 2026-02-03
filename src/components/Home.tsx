@@ -1,13 +1,18 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+type ClickMode = "route" | "next" | "none";
+
 type Banner = {
   imageSrc: string;
   altText: string;
-  headText: React.ReactNode; 
-  subText: React.ReactNode;  
+  headText: React.ReactNode;
+  subText: React.ReactNode;
   mainImg?: string;
-  link?: string;
+
+  link?: string;                 // used when clickMode === "route"
+  clickMode?: ClickMode;         // "next" | "route" | "none"
+  textPosClass?: string;         // adjustable position for text overlays
 };
 
 const LOGO_CENTER = "/assets/logo/logo.png";
@@ -15,7 +20,7 @@ const LOGO_CENTER = "/assets/logo/logo.png";
 const bannerDetails: Banner[] = [
   {
     imageSrc: "/assets/banners/main-banner.png",
-    altText: "main-banner", 
+    altText: "main-banner",
     headText: (
       <>
         Welcome to <span className="text-[#d2ae6d]">Epikurion</span>
@@ -23,18 +28,16 @@ const bannerDetails: Banner[] = [
     ),
     subText: (
       <>
-        Explore our story, harvests,C and <span className="text-white font-bold">heritage</span>.
+        Explore our story, harvests, and <span className="text-white font-bold">heritage</span>.
       </>
     ),
-
     mainImg: LOGO_CENTER,
-    link: "/epikurion",
-    
+    clickMode: "next",
+    textPosClass: "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
   },
   {
     imageSrc: "/assets/banners/banner-2.png",
     altText: "banner-2",
-    
     headText: (
       <>
         <span className="text-[#d2ae6d]">Origin</span>
@@ -46,57 +49,188 @@ const bannerDetails: Banner[] = [
       </>
     ),
     link: "/origin",
+    clickMode: "route",
+    textPosClass: "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
   },
   {
     imageSrc: "/assets/banners/banner-3.png",
     altText: "banner-3",
-  
     headText: (
       <>
-
-      <span className="font-dancing italic text-md text-[#d2ae6d]">the</span>
-        <span className="">Harvest</span>
+        <span className="font-dancing italic text-md text-[#d2ae6d] lowercase">the</span>
+        <span>Harvest</span>
       </>
     ),
-    subText: (
-      <>
-        
-      </>
-    ),
-    link: "/harvest",
+    subText: <></>,
+    clickMode: "none", 
+    textPosClass: "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
   },
   {
     imageSrc: "/assets/banners/banner-41.png",
     altText: "banner-4",
     headText: (
       <>
-       <span className="text-[#d2ae6d] shadow-xl"> A limited Gift Edition <br /></span>
-
+        <div className="flex justify-center items-center flex-col">
+          <span className="text-white text-[30px] absolute -top-72  left-20 uppercase">
+          Crafted by generations <br /> <span className="text-[40%] text-[#d2ae6d]">Reserved for connoisseurs</span>
+        </span>
+        <span className="text-white absolute -top-60  left-20 text-sm pt-5"></span>
+        </div>
       </>
     ),
     subText: (
       <>
-       <span className="text-white"> Reserved for Special Request</span> 
+        {/* <span className="text-white absolute -top-60 w-[100%]">Reserved for connoisseurs</span> */}
       </>
     ),
-   
+    clickMode: "none", 
+    textPosClass: "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
   },
   {
     imageSrc: "/assets/banners/banner-5.png",
     altText: "contact",
     headText: (
       <>
-        <span className="text-[#d2ae6d] shadow-xl">Contact</span>
+        <span className="text-[#d2ae6d] absolute -left-[500px]">Contact</span>
       </>
     ),
     subText: (
       <>
-        Let’s talk — we’re <span className="text-black font-bold"><span className="text-black">here</span></span> <span className="text-black">to help.</span>
+       <span className="absolute -left-[500px] top-[100px]">
+         Let’s talk — {" "}
+        <span className="text-black font-bold">
+          <span className="text-white">we’re  here</span>
+        </span>{" "}
+        <span className="text-white">to help.</span>
+       </span>
       </>
     ),
-    
+    link: "/contact",
+    clickMode: "route",
+    textPosClass: "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
   },
 ];
+
+// ---------- Menu Tiles (with hover banner preview inside each tile) ----------
+type MenuTile = {
+  label: React.ReactNode;
+  path?: string; // optional for non-click tiles like Gallery/More
+  bg: string; // base tile bg
+  previewSrc: string; // banner image to show on hover
+  overlayClass?: string; // customize overlay per tile if needed
+};
+
+const MENU_TILES: {
+  top: MenuTile[];
+  middle: MenuTile[];
+  bottom: MenuTile[];
+} = {
+  top: [
+    {
+      label: "Home",
+      path: "/",
+      bg: "bg-[#4a2c2c]",
+      previewSrc: "/assets/banners/main-banner.png",
+    },
+    {
+      label: "Origin",
+      path: "/origin",
+      bg: "bg-[#9b2d5d]",
+      previewSrc: "/assets/banners/banner-2.png",
+    },
+    {
+      label: "Harvest",
+      path: "/harvest",
+      bg: "bg-[#1f6f84]",
+      previewSrc: "/assets/banners/banner-3.png",
+    },
+  ],
+  middle: [
+    {
+      label: (
+        <div className="text-center">
+          <p className="tracking-[0.4em] text-2xl">Epikurion Grove</p>
+          <p className="text-xs mt-2 opacity-70">SINCE 1929</p>
+        </div>
+      ),
+      path: "/epikurion",
+      bg: "bg-[#5a3a35]",
+      previewSrc: "/assets/banners/main-banner.png",
+      overlayClass: "bg-black/55",
+    },
+  ],
+  bottom: [
+    {
+      label: "Contact",
+      path: "/contact",
+      bg: "bg-[#4a2c2c]",
+      previewSrc: "/assets/banners/banner-5.png",
+    },
+    {
+      label: "Gallery",
+      bg: "bg-[#9b2d5d]",
+      previewSrc: "/assets/banners/banner-41.png",
+    },
+    {
+      label: "More",
+      bg: "bg-[#1f6f84]",
+      previewSrc: "/assets/banners/banner-5.png",
+    },
+  ],
+};
+
+// Reusable tile component (no extra libs)
+const MenuTileBlock: React.FC<{
+  tile: MenuTile;
+  onClick?: () => void;
+}> = ({ tile, onClick }) => {
+  const clickable = Boolean(onClick);
+  return (
+    <div
+      onClick={onClick}
+      className={[
+        "group relative flex-1 flex items-center justify-center",
+        tile.bg,
+        "text-white tracking-widest",
+        "overflow-hidden",
+        clickable ? "cursor-pointer" : "cursor-default",
+        "hover:bg-white/20 transition-all",
+      ].join(" ")}
+      role={clickable ? "button" : undefined}
+      tabIndex={clickable ? 0 : -1}
+      onKeyDown={(e) => {
+        if (!clickable) return;
+        if (e.key === "Enter" || e.key === " ") onClick?.();
+      }}
+    >
+      {/* preview image inside the tile */}
+      <img
+        src={tile.previewSrc}
+        alt=""
+        draggable={false}
+        className={[
+          "absolute inset-0 h-full w-full object-cover",
+          "opacity-0 scale-110",
+          "group-hover:opacity-100 group-hover:scale-100",
+          "transition-all duration-700",
+        ].join(" ")}
+      />
+
+      {/* overlay */}
+      <div
+        className={[
+          "absolute inset-0",
+          tile.overlayClass ?? "bg-black/45",
+          "opacity-0 group-hover:opacity-100",
+          "transition-opacity duration-300",
+        ].join(" ")}
+      />
+
+      {/* label */}
+      <div className="relative z-10 px-4 text-center">{tile.label}</div>
+    </div>
+  );
+};
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -128,6 +262,8 @@ const Home: React.FC = () => {
   const dragStartX = useRef<number | null>(null);
   const dragging = useRef(false);
   const moved = useRef(false);
+
+  const menuRef = useRef<HTMLElement | null>(null);
 
   const onTouchStart: React.TouchEventHandler<HTMLElement> = (e) => {
     touchStartX.current = e.touches[0]?.clientX ?? null;
@@ -194,17 +330,43 @@ const Home: React.FC = () => {
     dragStartX.current = null;
   };
 
+  // ✅ click behavior per banner
   const onBannerClick: React.MouseEventHandler<HTMLElement> = () => {
-    if (!current.link) return;
     if (moved.current) return;
-    navigate(current.link);
+
+    const mode: ClickMode = current.clickMode ?? (current.link ? "route" : "none");
+    if (mode === "none") return;
+
+    if (mode === "next") {
+      // first banner -> second banner
+      userAction(() => setActive(1));
+      return;
+    }
+
+    if (mode === "route" && current.link) {
+      navigate(current.link);
+    }
   };
 
-  const cursorClass = current.link ? "cursor-pointer" : "cursor-grab active:cursor-grabbing";
+  const isClickable = (() => {
+    const mode: ClickMode = current.clickMode ?? (current.link ? "route" : "none");
+    return mode !== "none";
+  })();
 
+  const cursorClass = isClickable ? "cursor-pointer" : "cursor-grab active:cursor-grabbing";
+
+  // ✅ hamburger opens menu AND scrolls to it (linked)
   const toggleMenu = (e?: React.SyntheticEvent) => {
     e?.stopPropagation();
-    setNavActive((v) => !v);
+    setNavActive((v) => {
+      const nextVal = !v;
+      if (!v && nextVal) {
+        window.requestAnimationFrame(() => {
+          menuRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      }
+      return nextVal;
+    });
   };
 
   const go = (path: string) => {
@@ -226,6 +388,7 @@ const Home: React.FC = () => {
       onMouseLeave={onMouseUp}
       style={{ touchAction: "none" }}
     >
+      {/* banners track */}
       <div
         className="absolute inset-0 flex"
         style={{
@@ -241,104 +404,88 @@ const Home: React.FC = () => {
         ))}
       </div>
 
-      <div className="absolute inset-0" />
-
+      {/* top controls */}
       <div className="absolute inset-0 z-20">
-        <div className="p-4 sm:p-6 lg:p-8 flex justify-between items-start">
-          {/* ✅ Remove top header logo ONLY on first banner */}
-          <div className="flex flex-col items-start gap-2">
-            {active !== 0 && (
-              <img
-                src="/assets/logo/e-logo.png"
-                alt="Logo"
-                className="h-16 sm:h-16 cursor-pointer"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  navigate("/");
-                }}
-              />
-            )}
-
-            {/* ✅ Hamburger stays (professional, clean) */}
-            <button
-              type="button"
-              aria-label={navActive ? "Close menu" : "Open menu"}
-              onClick={toggleMenu}
-              className="group relative flex h-10 w-10 items-center translate-x-3 justify-center rounded-md bg-black/10 hover:bg-white/20 transition-all"
-            >
-              <span className="absolute inset-0 rounded-md ring-1 ring-white/20 group-hover:ring-white/30 transition-all" />
-              <span className="relative flex flex-col gap-[5px]">
-                <span className={`h-[2px] w-5 bg-white transition-all ${navActive ? "translate-y-[7px] rotate-45" : ""}`} />
-                <span className={`h-[2px] w-5 bg-white transition-all ${navActive ? "opacity-0" : "opacity-100"}`} />
-                <span className={`h-[2px] w-5 bg-white transition-all ${navActive ? "-translate-y-[7px] -rotate-45" : ""}`} />
-              </span>
-            </button>
-          </div>
+        <div className="p-4 sm:p-6 lg:p-8 flex justify-end items-start">
+          <button
+            type="button"
+            aria-label={navActive ? "Close menu" : "Open menu"}
+            onClick={toggleMenu}
+            className="group relative flex h-10 w-10 items-center translate-x-3 
+            justify-center rounded-md hover:shadow-lg transition-all"
+          >
+            <span className="absolute inset-0 rounded-md  ring-white/20 group-hover:ring-white/30 transition-all" />
+            <span className="relative flex flex-col gap-[5px]">
+              <span className={`h-[2px] w-5 bg-white transition-all ${navActive ? "translate-y-[7px] rotate-45" : ""}`} />
+              <span className={`h-[2px] w-5 bg-white transition-all ${navActive ? "opacity-0" : "opacity-100"}`} />
+              <span className={`h-[2px] w-5 bg-white transition-all ${navActive ? "-translate-y-[7px] -rotate-45" : ""}`} />
+            </span>
+          </button>
         </div>
       </div>
 
+      {/* ✅ menu with per-tile banner hover previews */}
       {navActive && (
-        <section className="absolute w-screen text-white h-screen flex flex-col bg-black z-50">
+        <section
+          ref={(el) => {
+            menuRef.current = el;
+          }}
+          className="absolute inset-0 w-screen h-screen flex flex-col bg-black z-50 text-white"
+          onClick={(e) => e.stopPropagation()}
+        >
           <div className="flex flex-1">
-            <div
-              className="flex-1 flex w-full h-full items-center justify-center bg-[#4a2c2c] hover:bg-white/20 transition-all text-white tracking-widest cursor-pointer"
-              onClick={() => go("/")}
-            >
-              Home
-            </div>
-            <div
-              className="flex-1 flex items-center justify-center bg-[#9b2d5d] text-white tracking-widest cursor-pointer hover:bg-white/20 transition-all"
-              onClick={() => go("/origin")}
-            >
-              Origin
-            </div>
-            <div
-              className="flex-1 flex items-center justify-center bg-[#1f6f84] text-white tracking-widest cursor-pointer hover:bg-white/20 transition-all"
-              onClick={() => go("/harvest")}
-            >
-              Harvest
-            </div>
+            {MENU_TILES.top.map((tile, idx) => (
+              <MenuTileBlock
+                key={idx}
+                tile={tile}
+                onClick={tile.path ? () => go(tile.path!) : undefined}
+              />
+            ))}
           </div>
 
           <div className="flex flex-1">
-            <div
-              className="flex-1 flex flex-col items-center justify-center bg-[#5a3a35] text-white cursor-pointer hover:bg-white/20 transition-all"
-              onClick={() => go("/epikurion")}
-            >
-              <p className="tracking-[0.4em] text-2xl">Epikurion Grove</p>
-              <p className="text-xs mt-2 opacity-70">SINCE 1929</p>
-            </div>
+            {MENU_TILES.middle.map((tile, idx) => (
+              <MenuTileBlock
+                key={idx}
+                tile={tile}
+                onClick={tile.path ? () => go(tile.path!) : undefined}
+              />
+            ))}
           </div>
 
           <div className="flex flex-1">
-            <div
-              className="flex-1 flex items-center justify-center bg-[#4a2c2c] text-white tracking-widest cursor-pointer hover:bg-white/20 transition-all"
-              onClick={() => go("/contact")}
-            >
-              Contact
-            </div>
-            <div className="flex-1 flex items-center justify-center bg-[#9b2d5d] text-white tracking-widest">
-              Gallery
-            </div>
-            <div className="flex-1 flex items-center justify-center bg-[#1f6f84] text-white tracking-widest">
-              More
-            </div>
+            {MENU_TILES.bottom.map((tile, idx) => (
+              <MenuTileBlock
+                key={idx}
+                tile={tile}
+                onClick={tile.path ? () => go(tile.path!) : undefined}
+              />
+            ))}
           </div>
         </section>
       )}
 
-      <div className="relative z-20 flex h-full items-center justify-center px-6 select-none pointer-events-none">
+      {/* overlay content (position adjustable) */}
+      <div className="absolute inset-0 z-30 pointer-events-none select-none">
         {current.mainImg ? (
-          <img
-            src={current.mainImg}
-            alt="center"
-            className="w-64 sm:w-80 lg:w-96 object-contain drop-shadow-2xl"
-            draggable={false}
-          />
+          <div className="absolute inset-0 flex items-center justify-center px-6">
+            <img
+              src={current.mainImg}
+              alt="center"
+              className="w-64 sm:w-80 lg:w-96 object-contain drop-shadow-2xl"
+              draggable={false}
+            />
+          </div>
         ) : (
-          <div key={active} className="text-center text-white">
-            {/* ✅ Messiri font, and text is editable with spans */}
-            <h1 className="font-messiri uppercase tracking-[0.22em] text-3xl sm:text-7xl opacity-0 translate-y-4 animate-heroTitle">
+          <div
+            key={active}
+            className={[
+              "absolute",
+              current.textPosClass ?? "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
+              "px-6 text-center",
+            ].join(" ")}
+          >
+            <h1 className="font-messiri uppercase tracking-[0.22em] text-3xl sm:text-7xl opacity-0 translate-y-4 animate-heroTitle text-white">
               {current.headText}
             </h1>
             <p className="mt-4 text-[#d2ae6d] font-semibold font-messiri text-xs sm:text-sm uppercase tracking-[0.35em] opacity-0 translate-y-3 animate-heroSub">
@@ -348,6 +495,7 @@ const Home: React.FC = () => {
         )}
       </div>
 
+      {/* arrows */}
       <button
         onClick={(e) => {
           e.stopPropagation();
@@ -370,6 +518,7 @@ const Home: React.FC = () => {
         ›
       </button>
 
+      {/* dots */}
       <div className="absolute bottom-6 left-1/2 z-30 -translate-x-1/2 flex gap-2">
         {bannerDetails.map((_, i) => (
           <button

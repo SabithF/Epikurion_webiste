@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Origin from './components/Origin'
 import Harvest from './components/Harvest';
 import EpikurionPage from './components/Epikurion';
-import NavScreen from './components/NavScreen';
 import ContactPage from './components/Contact';
 
 
@@ -20,7 +19,7 @@ function App() {
           <Route path='/origin' element={<Origin />} />
           <Route path='/harvest' element={<Harvest />} />
           <Route path='/epikurion' element={<EpikurionPage />} />
-          <Route path='/nav' element={<NavScreen />} />
+          {/* <Route path='/nav' element={<NavScreen />} /> */}
           <Route path='/contact' element={<ContactPage />} />
           <Route path='*' element={<Home />} />
           
