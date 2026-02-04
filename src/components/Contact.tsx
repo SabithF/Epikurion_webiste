@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion, type Variants } from "framer-motion";
+import Footer from "./Footer";
+import NavScreen from "./NavScreen";
+import { useNavigate } from "react-router-dom";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -14,25 +17,78 @@ const fadeIn: Variants = {
 };
 
 const ContactPage: React.FC = () => {
+  const navigate = useNavigate();
+  const [navActive, setNavActive] = useState(false);
+
+  useEffect(() => {
+    if (!navActive) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [navActive]);
+
+  const toggleMenu = (e?: React.SyntheticEvent) => {
+    e?.stopPropagation();
+    setNavActive((v) => !v);
+  };
+
   return (
     <main className="min-h-screen font-messiri bg-[#0c2000] text-white overflow-hidden">
       {/* Top */}
       <header className="relative z-20 px-8 sm:px-16 lg:px-32 pt-10">
-        <motion.img
-          src="/assets/logo/e-logo.png"
-          alt="Logo"
-          className="h-16 sm:h-20"
-          variants={fadeIn}
-          initial="hidden"
-          animate="show"
-          draggable={false}
-        />
+        {/* ✅ Fixed top bar */}
+        <div className="fixed top-0 left-0 right-0 z-[60]">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between pt-6">
+              <motion.img
+                src="/assets/logo/e-logo.png"
+                alt="Logo"
+                className="h-14 sm:h-16 w-auto cursor-pointer"
+                variants={fadeIn}
+                initial="hidden"
+                animate="show"
+                onClick={() => navigate("/")}
+                draggable={false}
+              />
+
+              <button
+                type="button"
+                aria-label={navActive ? "Close menu" : "Open menu"}
+                onClick={toggleMenu}
+                className="group relative flex h-10 w-10 items-center justify-center rounded-md bg-black/20 hover:bg-white/15 transition-all"
+              >
+                <span className="absolute inset-0 rounded-md hover:shadow-lg group-hover:ring-white/30 transition-all" />
+                <span className="relative flex flex-col gap-[5px]">
+                  <span
+                    className={`h-[2px] w-5 bg-white transition-all ${
+                      navActive ? "translate-y-[7px] rotate-45" : ""
+                    }`}
+                  />
+                  <span
+                    className={`h-[2px] w-5 bg-white transition-all ${
+                      navActive ? "opacity-0" : "opacity-100"
+                    }`}
+                  />
+                  <span
+                    className={`h-[2px] w-5 bg-white transition-all ${
+                      navActive ? "-translate-y-[7px] -rotate-45" : ""
+                    }`}
+                  />
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* ✅ spacer so content doesn't go under fixed bar */}
+        <div className="h-20" />
       </header>
 
       {/* HERO */}
       <section className="relative px-8 sm:px-16 lg:px-32 pt-12 pb-16">
         <div className="absolute inset-0 pointer-events-none opacity-20">
-          {/* subtle texture/vibe using existing imagery if you want */}
           <img
             src="/assets/img/epik/fruit.png"
             alt="bg"
@@ -100,32 +156,12 @@ const ContactPage: React.FC = () => {
 
                 <div>
                   <p className="uppercase tracking-[0.25em] text-xs text-[#d2ae6d]">Phone</p>
-                  <p className="mt-1 text-lg">+94 00 000 0000</p>
+                  {/* ✅ no nested <p> */}
+                  <div className="mt-1 text-lg space-y-1 leading-relaxed">
+                    <p>+61 478 666 813 {" | "} +94 773 065 999</p>
+                    <p>+30 694 020 8916</p>
+                  </div>
                 </div>
-
-                <div>
-                  <p className="uppercase tracking-[0.25em] text-xs text-[#d2ae6d]">Location</p>
-                  <p className="mt-1 text-lg leading-relaxed">
-                    Epikurion Grove Estate
-                    <br />
-                    (Address line here)
-                  </p>
-                </div>
-
-                <div>
-                  <p className="uppercase tracking-[0.25em] text-xs text-[#d2ae6d]">Hours</p>
-                  <p className="mt-1 text-lg">Mon – Fri, 9:00 – 17:00</p>
-                </div>
-              </div>
-
-              {/* optional socials */}
-              <div className="mt-10 flex gap-3">
-                <button className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 transition">
-                  Instagram
-                </button>
-                <button className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 transition">
-                  Facebook
-                </button>
               </div>
             </div>
           </motion.div>
@@ -144,10 +180,7 @@ const ContactPage: React.FC = () => {
                 Share a few details and we’ll get back to you.
               </p>
 
-              <form
-                className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-5"
-                onSubmit={(e) => e.preventDefault()}
-              >
+              <form className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-5" onSubmit={(e) => e.preventDefault()}>
                 <label className="flex flex-col gap-2">
                   <span className="text-sm uppercase tracking-[0.25em]">Name</span>
                   <input
@@ -196,7 +229,6 @@ const ContactPage: React.FC = () => {
               </form>
             </div>
 
-            {/* Small strip under form (matches your vibe) */}
             <div className="mt-8 rounded-2xl bg-white/5 ring-1 ring-white/10 p-8">
               <p className="text-white/85 leading-relaxed">
                 Prefer email? Write to{" "}
@@ -207,19 +239,10 @@ const ContactPage: React.FC = () => {
         </div>
       </section>
 
-      {/* FOOT STRIP */}
-      <footer className="bg-white/5 ring-1 ring-white/10 px-8 sm:px-16 lg:px-32 py-10">
-        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-          <div>
-            <p className="text-[#d2ae6d] uppercase tracking-[0.35em] text-xs">Epikurion Grove</p>
-            <p className="mt-2 text-white/80">Crafted with Tradition, Bottled with Care.</p>
-          </div>
+      <Footer />
 
-          <p className="text-white/60 text-sm">
-            © {new Date().getFullYear()} Epikurion Grove. All rights reserved.
-          </p>
-        </div>
-      </footer>
+      {/* ✅ Menu overlay */}
+      {navActive && <NavScreen onClose={() => setNavActive(false)} />}
     </main>
   );
 };

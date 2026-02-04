@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion, type Variants } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import NavScreen from "./NavScreen";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -24,18 +26,59 @@ const slideInRight: Variants = {
 };
 
 const EpikurionPage: React.FC = () => {
+  const navigate = useNavigate();
+  const [navActive, setNavActive] = useState(false);
+
+  useEffect(() => {
+    if (!navActive) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [navActive]);
+
+  const toggleMenu = (e?: React.SyntheticEvent) => {
+    e?.stopPropagation();
+    setNavActive((v) => !v);
+  };
+
+
+
   return (
-    <main className="min-h-screen overflow-hidden font-messiri overflow-hidden">
+    <main className="min-h-screen overflow-hidden font-messiri ">
       <header className="absolute pt-10 z-30 mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.img
-          src="/assets/logo/e-logo.png"
-          alt="Logo"
-          className="h-16 sm:h-20"
-          variants={fadeIn}
-          initial="hidden"
-          animate="show"
-          draggable={false}
-        />
+        <div className="fixed top-0 left-0 right-0 z-[60]">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between pt-6">
+              <motion.img
+                src="/assets/logo/e-logo.png"
+                alt="Logo"
+                className="h-14 sm:h-16 w-auto cursor-pointer"
+                variants={fadeIn}
+                initial="hidden"
+                animate="show"
+                onClick={() => navigate("/")}
+              />
+
+              <button
+                type="button"
+                aria-label={navActive ? "Close menu" : "Open menu"}
+                onClick={toggleMenu}
+                className="group relative flex h-10 w-10 items-center justify-center rounded-md bg-black/20 hover:bg-white/15 transition-all"
+              >
+                <span className="absolute inset-0 rounded-md hover:shadow-lg   group-hover:ring-white/30 transition-all" />
+                <span className="relative flex flex-col gap-[5px]">
+                  <span className={`h-[2px] w-5 bg-white transition-all ${navActive ? "translate-y-[7px] rotate-45" : ""}`} />
+                  <span className={`h-[2px] w-5 bg-white transition-all ${navActive ? "opacity-0" : "opacity-100"}`} />
+                  <span className={`h-[2px] w-5 bg-white transition-all ${navActive ? "-translate-y-[7px] -rotate-45" : ""}`} />
+                </span>
+              </button>
+            </div>
+          </div>
+
+
+        </div>
       </header>
 
       {/* SECTION 1 */}
@@ -201,8 +244,8 @@ const EpikurionPage: React.FC = () => {
           whileInView="show"
           viewport={{ once: true }}
         >
-          <p className="font-dancing text-8xl max-lg:text-5xl">1 liter</p>
-          <p className="text-3xl max-lg:text-lg">Extra Virgin Olive Oil</p>
+          <p className="font-dancing text-5xl max-lg:text-3xl">1 liter</p>
+          <p className="text-3xl max-lg:text-md">Extra Virgin Olive Oil</p>
         </motion.div>
 
         <div className="absolute bottom-0 left-0 w-full h-[14%] bg-white z-0 max-lg:h-16" />
@@ -213,11 +256,13 @@ const EpikurionPage: React.FC = () => {
         <div className="flex justify-between z-20 max-lg:flex-col max-lg:gap-10">
           <div className="w-[80%] max-lg:w-full">
             <div>
-              <div className="flex flex-row w-full gap-32 max-lg:flex-col max-lg:gap-8">
+              <div className="relative flex flex-row w-full gap-10 max-lg:flex-col max-lg:gap-0">
+
+
                 <motion.img
                   src="/assets/logo/epi-logo-white.png"
                   alt="logo"
-                  className="w-[40%] pt-20 max-lg:w-[70%] max-lg:pt-10"
+                  className="w-[40%] max-lg:w-[50%] relative translate-y-16 translate-x-6"
                   variants={fadeIn}
                   initial="hidden"
                   whileInView="show"
@@ -225,7 +270,7 @@ const EpikurionPage: React.FC = () => {
                   draggable={false}
                 />
                 <motion.div
-                  className="bg-red-800 flex text-3xl items-end italic px-4 pb-4 max-lg:w-fit"
+                  className="bg-red-800 flex text-3xl items-end italic px-1  max-lg:w-fit"
                   variants={fadeUp}
                   initial="hidden"
                   whileInView="show"
@@ -236,7 +281,8 @@ const EpikurionPage: React.FC = () => {
               </div>
 
               <motion.h1
-                className="text-8xl font-dancing -translate-y-10 text-yellowPrimary max-lg:text-6xl max-lg:translate-y-0 max-lg:mt-6"
+                className="text-8xl font-dancing -translate-y-28 text-yellowPrimary 
+                max-lg:text-7xl lg:translate-y-44 max-lg:mt-0"
                 variants={fadeUp}
                 initial="hidden"
                 whileInView="show"
@@ -283,7 +329,7 @@ const EpikurionPage: React.FC = () => {
               draggable={false}
             />
 
-            
+
             <motion.img
               src="/assets/img/epik/Lemon and Garlic.png"
               alt="lemon"
@@ -320,7 +366,7 @@ const EpikurionPage: React.FC = () => {
         <motion.img
           src="/assets/img/epik/Lemon-1.png"
           alt="LEMON"
-          className="absolute translate-x-30 translate-y-7 z-0 inset-0 max-lg:inset-auto max-lg:right-10 max-lg:top-1/2 max-lg:translate-x-0 max-lg:translate-y-0 lg:w-[220px]"
+          className="absolute translate-x-30 translate-y-7 z-0 inset-0 lg:inset-auto lg:left-1 lg:top-1 lg:translate-x-0 -lg:translate-y-24 lg:w-[220px]"
           variants={slideInRight}
           initial="hidden"
           whileInView="show"
@@ -422,87 +468,99 @@ const EpikurionPage: React.FC = () => {
         />
       </section>
 
-       <footer className="bg-[#0c2000] text-white border-t border-white/10">
-      {/* Top */}
-      <div className="px-8 sm:px-16 lg:px-32 py-16 grid grid-cols-1 lg:grid-cols-12 gap-12">
-        {/* Brand */}
-        <div className="lg:col-span-4">
-          <img
-            src="/assets/logo/epi-logo-white.png"
-            alt="Epikurion Grove"
-            className="h-14 mb-6"
-            draggable={false}
-          />
+      <footer className="bg-[#0c2000] text-white border-t border-white/10">
+        {/* Top */}
+        <div className="px-8 sm:px-16 lg:px-32 py-16 grid grid-cols-1 lg:grid-cols-12 gap-12">
+          {/* Brand */}
+          <div className="lg:col-span-4">
+            <img
+              src="/assets/logo/epi-logo-white.png"
+              alt="Epikurion Grove"
+              className="h-14 mb-6"
+              draggable={false}
+            />
 
-          <p className="text-white/70 leading-relaxed max-w-sm">
-            A single-estate extra virgin olive oil shaped by origin, craft,
-            and restraint. Crafted with tradition, bottled with care.
-          </p>
-        </div>
+            <p className="text-white/70 leading-relaxed max-w-sm">
+              A single-estate extra virgin olive oil shaped by origin, craft,
+              and restraint. Crafted with tradition, bottled with care.
+            </p>
+          </div>
 
-        {/* Navigation */}
-        <div className="lg:col-span-3">
-          <p className="uppercase tracking-[0.3em] text-xs text-[#d2ae6d] mb-6">
-            Explore
-          </p>
-          <ul className="space-y-3 text-white/80">
-            <li className="hover:text-white transition cursor-pointer">Home</li>
-            <li className="hover:text-white transition cursor-pointer">Origin</li>
-            <li className="hover:text-white transition cursor-pointer">Harvest</li>
-            <li className="hover:text-white transition cursor-pointer">Epikurion Grove</li>
-            <li className="hover:text-white transition cursor-pointer">Contact</li>
-          </ul>
-        </div>
+          {/* Navigation */}
+          <div className="lg:col-span-3">
+            <p className="uppercase tracking-[0.3em] text-xs text-[#d2ae6d] mb-6">
+              Explore
+            </p>
+            <ul className="space-y-3 text-white/80">
+              <li className="hover:text-white transition cursor-pointer">Home</li>
+              <li className="hover:text-white transition cursor-pointer">Origin</li>
+              <li className="hover:text-white transition cursor-pointer">Harvest</li>
+              <li className="hover:text-white transition cursor-pointer">Epikurion Grove</li>
+              <li className="hover:text-white transition cursor-pointer">Contact</li>
+            </ul>
+          </div>
 
-        {/* Contact */}
-        <div className="lg:col-span-3">
-          <p className="uppercase tracking-[0.3em] text-xs text-[#d2ae6d] mb-6">
-            Contact
-          </p>
+          {/* Contact */}
+          <div className="lg:col-span-3">
+            <p className="uppercase tracking-[0.3em] text-xs text-[#d2ae6d] mb-6">
+              Contact
+            </p>
 
-          <div className="space-y-4 text-white/80">
-            <p>contact@epikuriongrove.com</p>
-            <p>+94 00 000 0000</p>
-            <p className="leading-relaxed">
-              Epikurion Grove Estate
-              <br />
-              Mediterranean Region
+            <div className="space-y-4 text-white/80">
+              <p>contact@epikuriongrove.com</p>
+              <p>+94 00 000 0000</p>
+              <p className="leading-relaxed">
+                Epikurion Grove Estate
+                <br />
+                Mediterranean Region
+              </p>
+            </div>
+          </div>
+
+          {/* Newsletter / Statement */}
+          <div className="lg:col-span-2">
+            <p className="uppercase tracking-[0.3em] text-xs text-[#d2ae6d] mb-6">
+              Philosophy
+            </p>
+
+            <p className="text-white/70 leading-relaxed text-sm">
+              Produced in limited quantities, selected with intention, and offered
+              for moments of lasting significance.
             </p>
           </div>
         </div>
 
-        {/* Newsletter / Statement */}
-        <div className="lg:col-span-2">
-          <p className="uppercase tracking-[0.3em] text-xs text-[#d2ae6d] mb-6">
-            Philosophy
+        {/* Divider */}
+        <div className="h-px w-full bg-white/10" />
+
+        {/* Bottom */}
+        <div className="px-8 sm:px-16 lg:px-32 py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          <p className="text-white/60 text-sm">
+            © {new Date().getFullYear()} Epikurion Grove. All rights reserved.
           </p>
 
-          <p className="text-white/70 leading-relaxed text-sm">
-            Produced in limited quantities, selected with intention, and offered
-            for moments of lasting significance.
-          </p>
+          <div className="flex gap-6 text-white/60 text-sm">
+            <span className="hover:text-white transition cursor-pointer">
+              Privacy Policy
+            </span>
+            <span className="hover:text-white transition cursor-pointer">
+              Terms
+            </span>
+          </div>
         </div>
-      </div>
+      </footer>
 
-      {/* Divider */}
-      <div className="h-px w-full bg-white/10" />
-
-      {/* Bottom */}
-      <div className="px-8 sm:px-16 lg:px-32 py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-        <p className="text-white/60 text-sm">
-          © {new Date().getFullYear()} Epikurion Grove. All rights reserved.
-        </p>
-
-        <div className="flex gap-6 text-white/60 text-sm">
-          <span className="hover:text-white transition cursor-pointer">
-            Privacy Policy
-          </span>
-          <span className="hover:text-white transition cursor-pointer">
-            Terms
-          </span>
-        </div>
-      </div>
-    </footer>
+       {navActive && (
+          <div
+            className="fixed inset-0 z-[80]"
+            onClick={() => setNavActive(false)}
+          >
+            
+            <div onClick={(e) => e.stopPropagation()}>
+              <NavScreen onClose={() => setNavActive(false)} />
+            </div>
+          </div>
+        )}
     </main>
   );
 };

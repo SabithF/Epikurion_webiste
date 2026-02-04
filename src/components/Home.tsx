@@ -62,7 +62,8 @@ const bannerDetails: Banner[] = [
       </>
     ),
     subText: <></>,
-    clickMode: "none", 
+    link: "/harvest",
+    clickMode: "route", 
     textPosClass: "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
   },
   {
@@ -83,7 +84,8 @@ const bannerDetails: Banner[] = [
         {/* <span className="text-white absolute -top-60 w-[100%]">Reserved for connoisseurs</span> */}
       </>
     ),
-    clickMode: "none", 
+    link: "/epikurion",
+    clickMode: "route", 
     textPosClass: "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
   },
   {

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import NavScreen from "./NavScreen";
+import Footer from "./Footer";
 
 
 const fadeUp: Variants = {
@@ -14,78 +15,78 @@ const fadeIn: Variants = {
   show: { opacity: 1, transition: { duration: 1, ease: [0.22, 1, 0.36, 1] } },
 };
 
-type MenuTile = {
-  label: React.ReactNode;
-  path?: string;
-  bg: string;
-  previewSrc: string;
-  overlayClass?: string;
-};
+// type MenuTile = {
+//   label: React.ReactNode;
+//   path?: string;
+//   bg: string;
+//   previewSrc: string;
+//   overlayClass?: string;
+// };
 
-const MENU_TILES: { top: MenuTile[]; middle: MenuTile[]; bottom: MenuTile[] } = {
-  top: [
-    { label: "Home", path: "/", bg: "bg-[#4a2c2c]", previewSrc: "/assets/banners/main-banner.png" },
-    { label: "Origin", path: "/origin", bg: "bg-[#9b2d5d]", previewSrc: "/assets/banners/banner-2.png" },
-    { label: "Harvest", path: "/harvest", bg: "bg-[#1f6f84]", previewSrc: "/assets/banners/banner-3.png" },
-  ],
-  middle: [
-    {
-      label: (
-        <div className="text-center">
-          <p className="tracking-[0.4em] text-2xl">Epikurion Grove</p>
-          <p className="text-xs mt-2 opacity-70">SINCE 1929</p>
-        </div>
-      ),
-      path: "/epikurion",
-      bg: "bg-[#5a3a35]",
-      previewSrc: "/assets/banners/main-banner.png",
-      overlayClass: "bg-black/55",
-    },
-  ],
-  bottom: [
-    { label: "Contact", path: "/contact", bg: "bg-[#4a2c2c]", previewSrc: "/assets/banners/banner-5.png" },
-    { label: "Gallery", bg: "bg-[#9b2d5d]", previewSrc: "/assets/banners/banner-41.png" },
-    { label: "More", bg: "bg-[#1f6f84]", previewSrc: "/assets/banners/banner-5.png" },
-  ],
-};
+// const MENU_TILES: { top: MenuTile[]; middle: MenuTile[]; bottom: MenuTile[] } = {
+//   top: [
+//     { label: "Home", path: "/", bg: "bg-[#4a2c2c]", previewSrc: "/assets/banners/main-banner.png" },
+//     { label: "Origin", path: "/origin", bg: "bg-[#9b2d5d]", previewSrc: "/assets/banners/banner-2.png" },
+//     { label: "Harvest", path: "/harvest", bg: "bg-[#1f6f84]", previewSrc: "/assets/banners/banner-3.png" },
+//   ],
+//   middle: [
+//     {
+//       label: (
+//         <div className="text-center">
+//           <p className="tracking-[0.4em] text-2xl">Epikurion Grove</p>
+//           <p className="text-xs mt-2 opacity-70">SINCE 1929</p>
+//         </div>
+//       ),
+//       path: "/epikurion",
+//       bg: "bg-[#5a3a35]",
+//       previewSrc: "/assets/banners/main-banner.png",
+//       overlayClass: "bg-black/55",
+//     },
+//   ],
+//   bottom: [
+//     { label: "Contact", path: "/contact", bg: "bg-[#4a2c2c]", previewSrc: "/assets/banners/banner-5.png" },
+//     { label: "Gallery", bg: "bg-[#9b2d5d]", previewSrc: "/assets/banners/banner-41.png" },
+//     { label: "More", bg: "bg-[#1f6f84]", previewSrc: "/assets/banners/banner-5.png" },
+//   ],
+// };
 
-const MenuTileBlock: React.FC<{ tile: MenuTile; onClick?: () => void }> = ({ tile, onClick }) => {
-  const clickable = Boolean(onClick);
-  return (
-    <div
-      onClick={onClick}
-      className={[
-        "group relative flex-1 flex items-center justify-center",
-        tile.bg,
-        "text-white tracking-widest",
-        "overflow-hidden",
-        clickable ? "cursor-pointer" : "cursor-default",
-        "hover:bg-white/20 transition-all",
-      ].join(" ")}
-      role={clickable ? "button" : undefined}
-      tabIndex={clickable ? 0 : -1}
-      onKeyDown={(e) => {
-        if (!clickable) return;
-        if (e.key === "Enter" || e.key === " ") onClick?.();
-      }}
-    >
-      <img
-        src={tile.previewSrc}
-        alt=""
-        draggable={false}
-        className="absolute inset-0 h-full w-full object-cover opacity-0 scale-110 group-hover:opacity-100 group-hover:scale-100 transition-all duration-700"
-      />
-      <div
-        className={[
-          "absolute inset-0",
-          tile.overlayClass ?? "bg-black/45",
-          "opacity-0 group-hover:opacity-100 transition-opacity duration-300",
-        ].join(" ")}
-      />
-      <div className="relative z-10 px-4 text-center">{tile.label}</div>
-    </div>
-  );
-};
+// const MenuTileBlock: React.FC<{ tile: MenuTile; onClick?: () => void }> = ({ tile, onClick }) => {
+//   const clickable = Boolean(onClick);
+//   return (
+//     <div
+//       onClick={onClick}
+//       className={[
+//         "group relative flex-1 flex items-center justify-center",
+//         tile.bg,
+//         "text-white tracking-widest",
+//         "overflow-hidden",
+//         clickable ? "cursor-pointer" : "cursor-default",
+//         "hover:bg-white/20 transition-all",
+//       ].join(" ")}
+//       role={clickable ? "button" : undefined}
+//       tabIndex={clickable ? 0 : -1}
+//       onKeyDown={(e) => {
+//         if (!clickable) return;
+//         if (e.key === "Enter" || e.key === " ") onClick?.();
+//       }}
+//     >
+//       <img
+//         src={tile.previewSrc}
+//         alt=""
+//         draggable={false}
+//         className="absolute inset-0 h-full w-full object-cover opacity-0 scale-110 group-hover:opacity-100 group-hover:scale-100 transition-all duration-700"
+//       />
+//       <div
+//         className={[
+//           "absolute inset-0",
+//           tile.overlayClass ?? "bg-black/45",
+//           "opacity-0 group-hover:opacity-100 transition-opacity duration-300",
+//         ].join(" ")}
+//       />
+//       <div className="relative z-10 px-4 text-center">{tile.label}</div>
+//     </div>
+//   );
+// };
 
 const AboutPage: React.FC = () => {
   const navigate = useNavigate();
@@ -107,18 +108,19 @@ const AboutPage: React.FC = () => {
     setNavActive((v) => !v);
   };
 
-  const go = (path: string) => {
-    setNavActive(false);
-    navigate(path);
-  };
+  // const go = (path: string) => {
+  //   setNavActive(false);
+  //   navigate(path);
+  // };
 
   return (
-    <main
+   <>
+     <main
       className="min-h-screen w-full bg-black bg-no-repeat bg-cover bg-top overflow-hidden"
       style={{ backgroundImage: "url(/assets/banners/black-bg.jpg)" }}
     >
       <div className="min-h-screen bg-black/20">
-        {/* ✅ Fixed top bar (logo + hamburger) */}
+        
         <div className="fixed top-0 left-0 right-0 z-[60]">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between pt-6">
@@ -148,8 +150,7 @@ const AboutPage: React.FC = () => {
             </div>
           </div>
 
-          {/* subtle divider */}
-          <div className="h-px w-full bg-white/10 mt-4" />
+         
         </div>
 
         {/* ✅ push content down so it doesn't go under fixed bar */}
@@ -319,7 +320,15 @@ const AboutPage: React.FC = () => {
         )}
 
       </div>
+
+      
     </main>
+
+    <Footer />
+   
+   </>
+
+    
   );
 };
 

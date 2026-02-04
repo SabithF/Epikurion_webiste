@@ -1,5 +1,9 @@
 import React from "react";
 import { motion, type Variants } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import NavScreen from "./NavScreen";
+import Footer from "./Footer";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -14,21 +18,65 @@ const fadeIn: Variants = {
 };
 
 const Harvest: React.FC = () => {
+
+  const navigate = useNavigate();
+  const [navActive, setNavActive] = useState(false);
+
+
+  // lock scroll when menu is open
+  useEffect(() => {
+    if (!navActive) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [navActive]);
+
+  const toggleMenu = (e?: React.SyntheticEvent) => {
+    e?.stopPropagation();
+    setNavActive((v) => !v);
+  };
+
+
   return (
-    <main className="min-h-screen w-full overflow-hidden font-messiri">
+   <>
+     <main className="min-h-screen w-full overflow-hidden font-messiri">
       <div className="min-h-screen">
         
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
           <header className="absolute pt-10 z-30">
-            <motion.img
-              src="/assets/logo/e-logo.png"
-              alt="Logo"
-              className="h-16 sm:h-20"
-              variants={fadeIn}
-              initial="hidden"
-              animate="show"
-              draggable={false}
-            />
+            <div className="fixed top-0 left-0 right-0 z-[60]">
+                      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                        <div className="flex items-center justify-between pt-6">
+                          <motion.img
+                            src="/assets/logo/e-logo.png"
+                            alt="Logo"
+                            className="h-14 sm:h-16 w-auto cursor-pointer"
+                            variants={fadeIn}
+                            initial="hidden"
+                            animate="show"
+                            onClick={() => navigate("/")}
+                          />
+            
+                          <button
+                            type="button"
+                            aria-label={navActive ? "Close menu" : "Open menu"}
+                            onClick={toggleMenu}
+                            className="group relative flex h-10 w-10 items-center justify-center rounded-md bg-black/20 hover:bg-white/15 transition-all"
+                          >
+                            <span className="absolute inset-0 rounded-md hover:shadow-lg   group-hover:ring-white/30 transition-all" />
+                            <span className="relative flex flex-col gap-[5px]">
+                              <span className={`h-[2px] w-5 bg-white transition-all ${navActive ? "translate-y-[7px] rotate-45" : ""}`} />
+                              <span className={`h-[2px] w-5 bg-white transition-all ${navActive ? "opacity-0" : "opacity-100"}`} />
+                              <span className={`h-[2px] w-5 bg-white transition-all ${navActive ? "-translate-y-[7px] -rotate-45" : ""}`} />
+                            </span>
+                          </button>
+                        </div>
+                      </div>
+            
+                     
+                    </div>
           </header>
 
           <motion.div
@@ -256,7 +304,21 @@ const Harvest: React.FC = () => {
           </div>
         </section>
       </div>
+      {navActive && (
+          <div
+            className="fixed inset-0 z-[80]"
+            onClick={() => setNavActive(false)}
+          >
+            
+            <div onClick={(e) => e.stopPropagation()}>
+              <NavScreen onClose={() => setNavActive(false)} />
+            </div>
+          </div>
+        )}
     </main>
+
+    <Footer />
+   </>
   );
 };
 
