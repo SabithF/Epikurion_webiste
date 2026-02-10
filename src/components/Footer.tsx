@@ -41,7 +41,7 @@ const Footer: React.FC = () => {
             </p>
 
             <div className="space-y-4 text-white/80">
-              <p>contact@epikuriongrove.com</p>
+              <p>hello@epikuriongrove.com</p>
               <p>+61 478 666 813 {" | "} +94 773 065 999
 </p>
               <p className="leading-relaxed">
@@ -77,7 +77,7 @@ const Footer: React.FC = () => {
               <span>Website developed by</span>
 
               <a
-                href="#"
+                href="https://www.haicreations.com/"
                 className="flex items-center gap-2 hover:opacity-90 transition"
               >
                 <img

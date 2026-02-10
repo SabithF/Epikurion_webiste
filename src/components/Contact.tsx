@@ -232,7 +232,7 @@ const ContactPage: React.FC = () => {
             <div className="mt-8 rounded-2xl bg-white/5 ring-1 ring-white/10 p-8">
               <p className="text-white/85 leading-relaxed">
                 Prefer email? Write to{" "}
-                <span className="text-[#d2ae6d]">contact@epikuriongrove.com</span> and we’ll respond.
+                <span className="text-[#d2ae6d]">hello@epikuriongrove.com</span> and we’ll respond.
               </p>
             </div>
           </motion.div>

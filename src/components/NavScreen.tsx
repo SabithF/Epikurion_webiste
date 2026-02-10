@@ -94,7 +94,7 @@ const NavScreen: React.FC<NavScreenProps> = ({ onClose }) => {
   };
 
   return (
-    // ✅ click outside rows closes (optional but makes close easy)
+    
     <section
       className="fixed inset-0 z-[70] w-screen h-screen bg-black text-white"
       onClick={onClose}

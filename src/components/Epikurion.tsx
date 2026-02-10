@@ -244,7 +244,7 @@ const EpikurionPage: React.FC = () => {
           whileInView="show"
           viewport={{ once: true }}
         >
-          <p className="font-dancing text-5xl max-lg:text-3xl">1 liter</p>
+          <p className="font-dancing text-5xl max-lg:text-3xl">1 litre</p>
           <p className="text-3xl max-lg:text-md">Extra Virgin Olive Oil</p>
         </motion.div>
 
@@ -300,7 +300,7 @@ const EpikurionPage: React.FC = () => {
                 viewport={{ once: true, amount: 0.45 }}
               >
                 <p className="leading-relaxed">
-                  Epikurion Grove Signature is a expression that unites fresh
+                  Epikurion Grove Signature is an expression that unites fresh
                   Mediterranean citrus with gentle garlic warmth, layered over our
                   single-estate extra virgin olive oil. Bright and aromatic in character,
                   it opens with notes of lemon zest, followed by a smooth olive-fruit core and a soft, savoury finish.
