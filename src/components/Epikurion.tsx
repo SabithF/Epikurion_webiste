@@ -43,8 +43,6 @@ const EpikurionPage: React.FC = () => {
     setNavActive((v) => !v);
   };
 
-
-
   return (
     <main className="min-h-screen overflow-hidden font-messiri ">
       <header className="absolute pt-10 z-30 mx-auto px-4 sm:px-6 lg:px-8">
@@ -69,15 +67,25 @@ const EpikurionPage: React.FC = () => {
               >
                 <span className="absolute inset-0 rounded-md hover:shadow-lg   group-hover:ring-white/30 transition-all" />
                 <span className="relative flex flex-col gap-[5px]">
-                  <span className={`h-[2px] w-5 bg-white transition-all ${navActive ? "translate-y-[7px] rotate-45" : ""}`} />
-                  <span className={`h-[2px] w-5 bg-white transition-all ${navActive ? "opacity-0" : "opacity-100"}`} />
-                  <span className={`h-[2px] w-5 bg-white transition-all ${navActive ? "-translate-y-[7px] -rotate-45" : ""}`} />
+                  <span
+                    className={`h-[2px] w-5 bg-white transition-all ${
+                      navActive ? "translate-y-[7px] rotate-45" : ""
+                    }`}
+                  />
+                  <span
+                    className={`h-[2px] w-5 bg-white transition-all ${
+                      navActive ? "opacity-0" : "opacity-100"
+                    }`}
+                  />
+                  <span
+                    className={`h-[2px] w-5 bg-white transition-all ${
+                      navActive ? "-translate-y-[7px] -rotate-45" : ""
+                    }`}
+                  />
                 </span>
               </button>
             </div>
           </div>
-
-
         </div>
       </header>
 
@@ -154,7 +162,7 @@ const EpikurionPage: React.FC = () => {
       </section>
 
       {/* LIMITED SECTION */}
-      <section className="relative bg-[#d2ae6d] overflow-hidden">
+      <section className="relative bg-[#d2ae6d] overflow-hidden isolate">
         <motion.img
           src="/assets/img/epik/banner-4.png"
           alt="bottles-banner"
@@ -187,6 +195,10 @@ const EpikurionPage: React.FC = () => {
             viewport={{ once: true, amount: 0.35 }}
             draggable={false}
           />
+          <div className="block md:hidden ">
+            <p className="font-dancing text-2xl ">1 litre - Extra Virgin Olive Oil</p>
+          <p className="text-2xl max-lg:text-md"></p>
+          </div>
 
           <div className="ml-16 max-w-3xl max-lg:ml-0">
             <motion.h2
@@ -199,7 +211,6 @@ const EpikurionPage: React.FC = () => {
               Origin of Epikurion Grove
             </motion.h2>
 
-            {/* ✅ overflow-safe paragraph */}
             <motion.p
               className="mt-8 mb-8 font-messiri text-gray-800/60
                 w-[80%] max-lg:w-full
@@ -217,7 +228,6 @@ const EpikurionPage: React.FC = () => {
               The ornamentation is deliberate and restrained, echoing the rhythm of olive
               branches shaped by time, sun, and soil.
               <br />
-              <br />
               Produced in strictly limited quantities from a single estate, this edition
               is offered only by special request. Each bottle is individually selected
               from a carefully chosen harvest, intended for private collections, refined
@@ -228,27 +238,24 @@ const EpikurionPage: React.FC = () => {
 
         <motion.div
           className="
-            absolute
-            z-30
-            left-[35%]
-            top-[90%]
-            -translate-y-1/2
-            text-[#314036]
-            max-lg:static
-            max-lg:translate-y-0
-            max-lg:px-6
-            max-lg:pb-10
+            absolute z-[30]
+            left-[35%] top-[90%] -translate-y-1/2
+            text-[#314036] 
+            max-lg:absolute max-lg:left-6 max-lg:bottom-20 max-lg:top-auto max-lg:translate-y-0
           "
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
         >
-          <p className="font-dancing text-5xl max-lg:text-3xl">1 litre</p>
-          <p className="text-3xl max-lg:text-md">Extra Virgin Olive Oil</p>
+          
+          <div className="md:block hidden">
+            <p className="font-dancing text-6xl">1 litre</p>
+          <p className="text-2xl max-lg:text-md">Extra Virgin Olive Oil</p>
+          </div>
         </motion.div>
 
-        <div className="absolute bottom-0 left-0 w-full h-[14%] bg-white z-0 max-lg:h-16" />
+        <div className="absolute md:block bottom-0 left-0 w-full h-[14%] hidden  bg-white z-[1] max-lg:h-16" />
       </section>
 
       {/* GREEN SECTION */}
@@ -256,13 +263,11 @@ const EpikurionPage: React.FC = () => {
         <div className="flex justify-between z-20 max-lg:flex-col max-lg:gap-10">
           <div className="w-[80%] max-lg:w-full">
             <div>
-              <div className="relative flex flex-row w-full gap-10 max-lg:flex-col max-lg:gap-0">
-
-
+              <div className="relative flex flex-row w-full gap-10 max-lg:flex-col max-lg:gap-4 max-lg:items-start">
                 <motion.img
                   src="/assets/logo/epi-logo-white.png"
                   alt="logo"
-                  className="w-[40%] max-lg:w-[50%] relative translate-y-16 translate-x-6"
+                  className="w-[40%] max-lg:w-[70%] relative translate-y-16 translate-x-6 max-lg:translate-y-0 max-lg:translate-x-0 max-lg:mt-6"
                   variants={fadeIn}
                   initial="hidden"
                   whileInView="show"
@@ -270,7 +275,7 @@ const EpikurionPage: React.FC = () => {
                   draggable={false}
                 />
                 <motion.div
-                  className="bg-red-800 flex text-3xl items-end italic px-1  max-lg:w-fit"
+                  className="bg-red-800 flex text-3xl items-end italic px-1 max-lg:w-fit max-lg:mt-4 max-lg:ml-2"
                   variants={fadeUp}
                   initial="hidden"
                   whileInView="show"
@@ -317,18 +322,17 @@ const EpikurionPage: React.FC = () => {
           </div>
 
           {/* Bottles */}
-          <div className="relative max-lg:flex max-lg:justify-center">
+          <div className="relative max-lg:flex max-lg:justify-center max-lg:flex-col max-lg:items-center">
             <motion.img
               src="/assets/img/epik/Epikurion Grove Bottle GiftB.png"
               alt="epikurion gift bottle"
-              className="w-[62%] -translate-y-80 translate-x-32 z-20 abstract max-lg:w-[70%] max-lg:translate-x-0 max-lg:translate-y-100"
+              className="w-[62%] -translate-y-80 translate-x-32 z-20 abstract max-lg:w-[58%] max-lg:translate-x-0 max-lg:translate-y-0 max-lg:mx-auto"
               variants={slideInRight}
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, amount: 0.35 }}
               draggable={false}
             />
-
 
             <motion.img
               src="/assets/img/epik/Lemon and Garlic.png"
@@ -337,7 +341,7 @@ const EpikurionPage: React.FC = () => {
                 absolute
                 -translate-y-[22rem] translate-x-24
                 z-10 w-[78%] -bottom-48 -right-20
-                max-lg:static max-lg:w-[70%] max-lg:translate-x-0 max-lg:translate-y-0
+                max-lg:static max-lg:w-[62%] max-lg:mx-auto max-lg:mt-6 max-lg:translate-x-0 max-lg:translate-y-0
               "
               variants={slideInLeft}
               initial="hidden"
@@ -358,15 +362,18 @@ const EpikurionPage: React.FC = () => {
           whileInView="show"
           viewport={{ once: true, amount: 0.6 }}
         >
-          <h1 className="font-dancing text-8xl text-[#494949] max-lg:text-5xl">750ml</h1>
-          <p className="text-3xl text-[#494949] max-lg:text-xl">Extra Virgin Olive Oil</p>
-          <p className="text-3xl text-[#494949] max-lg:text-xl">Infused with Lemon and Garlic</p>
+          <h1 className="font-dancing translate-x-44 md:translate-x-0 text-8xl text-[#494949] max-lg:text-5xl">750ml</h1>
+          <p className="text-3xl text-[#494949] translate-x-20  md:translate-x-0 max-lg:text-xl">Extra Virgin Olive Oil</p>
+          <p className="text-3xl text-[#494949] translate-x-10 md:translate-x-0 max-lg:text-xl">
+            Infused with Lemon and Garlic
+          </p>
         </motion.div>
 
         <motion.img
           src="/assets/img/epik/Lemon-1.png"
           alt="LEMON"
-          className="absolute translate-x-30 translate-y-7 z-0 inset-0 lg:inset-auto lg:left-1 lg:top-1 lg:translate-x-0 -lg:translate-y-24 lg:w-[220px]"
+          className="absolute translate-x-5 translate-y-7 z-0  w-24 right-2
+          inset-0 lg:inset-auto lg:left-1 lg:top-1 lg:translate-x-0 -md:translate-y-24 md:w-[220px]"
           variants={slideInRight}
           initial="hidden"
           whileInView="show"
@@ -377,9 +384,7 @@ const EpikurionPage: React.FC = () => {
 
       {/* ALL BOTTLES */}
       <section className="relative py-5 w-full flex flex-col justify-center items-center uppercase">
-        <div className="pt-48 max-lg:pt-24 px-32">
-
-
+        <div className="pt-48 max-lg:pt-24 px-32 max-lg:px-6">
           <motion.img
             src="/assets/img/epik/all-bottles.png"
             alt="all bottles"
@@ -388,7 +393,7 @@ const EpikurionPage: React.FC = () => {
             whileInView="show"
             viewport={{ once: true, amount: 0.3 }}
             draggable={false}
-            className="max-lg:w-[40%] max-lg:mx-auto"
+            className="w-full max-lg:w-[92%] max-lg:mx-auto"
           />
         </div>
 
@@ -463,7 +468,7 @@ const EpikurionPage: React.FC = () => {
           src="/assets/img/epik/1litre.png"
           alt="One liter bottle"
           className="w-[40%] rotate-[45deg] -translate-y-[500px] translate-x-[600px] items-center flex justify-center
-                     max-lg:w-[75%] max-lg:rotate-0 max-lg:translate-x-0 max-lg:translate-y-0 max-lg:mx-auto max-lg:mt-10
+                     max-lg:w-[60%] max-lg:rotate-0 max-lg:translate-x-0 max-lg:translate-y-0 max-lg:mx-auto max-lg:mt-10
                      absolute overflow-hidden"
         />
       </section>
@@ -550,17 +555,13 @@ const EpikurionPage: React.FC = () => {
         </div>
       </footer>
 
-       {navActive && (
-          <div
-            className="fixed inset-0 z-[80]"
-            onClick={() => setNavActive(false)}
-          >
-            
-            <div onClick={(e) => e.stopPropagation()}>
-              <NavScreen onClose={() => setNavActive(false)} />
-            </div>
+      {navActive && (
+        <div className="fixed inset-0 z-[80]" onClick={() => setNavActive(false)}>
+          <div onClick={(e) => e.stopPropagation()}>
+            <NavScreen onClose={() => setNavActive(false)} />
           </div>
-        )}
+        </div>
+      )}
     </main>
   );
 };

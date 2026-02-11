@@ -10,9 +10,9 @@ type Banner = {
   subText: React.ReactNode;
   mainImg?: string;
 
-  link?: string;                 // used when clickMode === "route"
-  clickMode?: ClickMode;         // "next" | "route" | "none"
-  textPosClass?: string;         // adjustable position for text overlays
+  link?: string;
+  clickMode?: ClickMode;
+  textPosClass?: string;
 };
 
 const LOGO_CENTER = "/assets/logo/logo.png";
@@ -28,7 +28,8 @@ const bannerDetails: Banner[] = [
     ),
     subText: (
       <>
-        Explore our story, harvests, and <span className="text-white font-bold">heritage</span>.
+        Explore our story, harvests, and{" "}
+        <span className="text-white font-bold">heritage</span>.
       </>
     ),
     mainImg: LOGO_CENTER,
@@ -45,7 +46,9 @@ const bannerDetails: Banner[] = [
     ),
     subText: (
       <>
-        <span className="text-white">Single Estate . Limited Harvest . Greek Excellence</span>
+        <span className="text-white">
+          Single Estate . Limited Harvest . Greek Excellence
+        </span>
       </>
     ),
     link: "/origin",
@@ -57,54 +60,61 @@ const bannerDetails: Banner[] = [
     altText: "banner-3",
     headText: (
       <>
-        <span className="font-dancing italic text-md text-[#d2ae6d] lowercase">the</span>
+        <span className="font-dancing italic text-md text-[#d2ae6d] lowercase">
+          the
+        </span>
         <span>Harvest</span>
       </>
     ),
     subText: <></>,
     link: "/harvest",
-    clickMode: "route", 
+    clickMode: "route",
     textPosClass: "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
   },
+
+  // ✅ Epikurion banner:
+  // - Desktop stays EXACTLY as you had (absolute -top-72 left-20 etc.)
+  // - Mobile becomes the same style as other banners (centered like others)
   {
     imageSrc: "/assets/banners/banner-41.png",
     altText: "banner-4",
     headText: (
       <>
         <div className="flex justify-center items-center flex-col">
-          <span className="text-white text-[30px] absolute -top-72  left-20 uppercase">
-          Crafted by generations <br /> <span className="text-[40%] text-[#d2ae6d]">Reserved for connoisseurs</span>
-        </span>
-        <span className="text-white absolute -top-60  left-20 text-sm pt-5"></span>
+          <span className="text-white text-[30px] absolute -top-72 left-20 uppercase max-lg:static max-lg:text-inherit max-lg:tracking-[0.22em]">
+            Crafted by generations <br />{" "}
+            <span className="text-[40%] text-[#d2ae6d]">Reserved for connoisseurs</span>
+          </span>
+          <span className="text-white absolute -top-60 left-20 text-sm pt-5 max-lg:hidden"></span>
         </div>
       </>
     ),
-    subText: (
-      <>
-        {/* <span className="text-white absolute -top-60 w-[100%]">Reserved for connoisseurs</span> */}
-      </>
-    ),
+    subText: <></>,
     link: "/epikurion",
-    clickMode: "route", 
+    clickMode: "route",
+    // ✅ On mobile, position like other banners (center)
     textPosClass: "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
   },
+
   {
     imageSrc: "/assets/banners/banner-5.png",
     altText: "contact",
     headText: (
       <>
-        <span className="text-[#d2ae6d] absolute -left-[500px]">Contact</span>
+        <span className="text-[#d2ae6d] absolute -left-[500px] max-lg:static">
+          Contact
+        </span>
       </>
     ),
     subText: (
       <>
-       <span className="absolute -left-[500px] top-[100px]">
-         Let’s talk — {" "}
-        <span className="text-black font-bold">
-          <span className="text-white">we’re  here</span>
-        </span>{" "}
-        <span className="text-white">to help.</span>
-       </span>
+        <span className="absolute -left-[500px] top-[100px] max-lg:static max-lg:block max-lg:mt-3">
+          Let’s talk —{" "}
+          <span className="text-black font-bold">
+            <span className="text-white">we’re here</span>
+          </span>{" "}
+          <span className="text-white">to help.</span>
+        </span>
       </>
     ),
     link: "/contact",
@@ -113,13 +123,13 @@ const bannerDetails: Banner[] = [
   },
 ];
 
-// ---------- Menu Tiles (with hover banner preview inside each tile) ----------
+// ---------- Menu Tiles ----------
 type MenuTile = {
   label: React.ReactNode;
-  path?: string; // optional for non-click tiles like Gallery/More
-  bg: string; // base tile bg
-  previewSrc: string; // banner image to show on hover
-  overlayClass?: string; // customize overlay per tile if needed
+  path?: string;
+  bg: string;
+  previewSrc: string;
+  overlayClass?: string;
 };
 
 const MENU_TILES: {
@@ -128,30 +138,15 @@ const MENU_TILES: {
   bottom: MenuTile[];
 } = {
   top: [
-    {
-      label: "Home",
-      path: "/",
-      bg: "bg-[#4a2c2c]",
-      previewSrc: "/assets/banners/main-banner.png",
-    },
-    {
-      label: "Origin",
-      path: "/origin",
-      bg: "bg-[#9b2d5d]",
-      previewSrc: "/assets/banners/banner-2.png",
-    },
-    {
-      label: "Harvest",
-      path: "/harvest",
-      bg: "bg-[#1f6f84]",
-      previewSrc: "/assets/banners/banner-3.png",
-    },
+    { label: "Home", path: "/", bg: "bg-[#4a2c2c]", previewSrc: "/assets/banners/main-banner.png" },
+    { label: "Origin", path: "/origin", bg: "bg-[#9b2d5d]", previewSrc: "/assets/banners/banner-2.png" },
+    { label: "Harvest", path: "/harvest", bg: "bg-[#1f6f84]", previewSrc: "/assets/banners/banner-3.png" },
   ],
   middle: [
     {
       label: (
         <div className="text-center">
-          <p className="tracking-[0.4em] text-2xl">Epikurion Grove</p>
+          <p className="tracking-[0.4em] text-2xl max-sm:text-xl">Epikurion Grove</p>
           <p className="text-xs mt-2 opacity-70">SINCE 1929</p>
         </div>
       ),
@@ -162,26 +157,12 @@ const MENU_TILES: {
     },
   ],
   bottom: [
-    {
-      label: "Contact",
-      path: "/contact",
-      bg: "bg-[#4a2c2c]",
-      previewSrc: "/assets/banners/banner-5.png",
-    },
-    {
-      label: "Gallery",
-      bg: "bg-[#9b2d5d]",
-      previewSrc: "/assets/banners/banner-41.png",
-    },
-    {
-      label: "More",
-      bg: "bg-[#1f6f84]",
-      previewSrc: "/assets/banners/banner-5.png",
-    },
+    { label: "Contact", path: "/contact", bg: "bg-[#4a2c2c]", previewSrc: "/assets/banners/banner-5.png" },
+    { label: "Gallery", bg: "bg-[#9b2d5d]", previewSrc: "/assets/banners/banner-41.png" },
+    { label: "More", bg: "bg-[#1f6f84]", previewSrc: "/assets/banners/banner-5.png" },
   ],
 };
 
-// Reusable tile component (no extra libs)
 const MenuTileBlock: React.FC<{
   tile: MenuTile;
   onClick?: () => void;
@@ -197,6 +178,7 @@ const MenuTileBlock: React.FC<{
         "overflow-hidden",
         clickable ? "cursor-pointer" : "cursor-default",
         "hover:bg-white/20 transition-all",
+        "min-h-[33vh] sm:min-h-0",
       ].join(" ")}
       role={clickable ? "button" : undefined}
       tabIndex={clickable ? 0 : -1}
@@ -205,7 +187,6 @@ const MenuTileBlock: React.FC<{
         if (e.key === "Enter" || e.key === " ") onClick?.();
       }}
     >
-      {/* preview image inside the tile */}
       <img
         src={tile.previewSrc}
         alt=""
@@ -218,7 +199,6 @@ const MenuTileBlock: React.FC<{
         ].join(" ")}
       />
 
-      {/* overlay */}
       <div
         className={[
           "absolute inset-0",
@@ -228,8 +208,9 @@ const MenuTileBlock: React.FC<{
         ].join(" ")}
       />
 
-      {/* label */}
-      <div className="relative z-10 px-4 text-center">{tile.label}</div>
+      <div className="relative z-10 px-4 text-center text-sm sm:text-base">
+        {tile.label}
+      </div>
     </div>
   );
 };
@@ -332,15 +313,14 @@ const Home: React.FC = () => {
     dragStartX.current = null;
   };
 
-  // ✅ click behavior per banner
   const onBannerClick: React.MouseEventHandler<HTMLElement> = () => {
     if (moved.current) return;
 
-    const mode: ClickMode = current.clickMode ?? (current.link ? "route" : "none");
+    const mode: ClickMode =
+      current.clickMode ?? (current.link ? "route" : "none");
     if (mode === "none") return;
 
     if (mode === "next") {
-      // first banner -> second banner
       userAction(() => setActive(1));
       return;
     }
@@ -351,13 +331,15 @@ const Home: React.FC = () => {
   };
 
   const isClickable = (() => {
-    const mode: ClickMode = current.clickMode ?? (current.link ? "route" : "none");
+    const mode: ClickMode =
+      current.clickMode ?? (current.link ? "route" : "none");
     return mode !== "none";
   })();
 
-  const cursorClass = isClickable ? "cursor-pointer" : "cursor-grab active:cursor-grabbing";
+  const cursorClass = isClickable
+    ? "cursor-pointer"
+    : "cursor-grab active:cursor-grabbing";
 
-  // ✅ hamburger opens menu AND scrolls to it (linked)
   const toggleMenu = (e?: React.SyntheticEvent) => {
     e?.stopPropagation();
     setNavActive((v) => {
@@ -401,10 +383,22 @@ const Home: React.FC = () => {
       >
         {bannerDetails.map((b, i) => (
           <div key={i} className="h-screen w-screen flex-shrink-0">
-            <img src={b.imageSrc} alt={b.altText} className="h-full w-full object-cover" draggable={false} />
+            <img
+              src={b.imageSrc}
+              alt={b.altText}
+              className="h-full w-full object-cover"
+              draggable={false}
+            />
           </div>
         ))}
       </div>
+
+      {/* ✅ overlay gradient: REMOVE for first banner only */}
+      {active !== 0 && (
+        <div className="absolute inset-0 z-10 pointer-events-none">
+          <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/10 to-black/35 max-lg:from-black/55 max-lg:via-black/20 max-lg:to-black/55" />
+        </div>
+      )}
 
       {/* top controls */}
       <div className="absolute inset-0 z-20">
@@ -413,10 +407,9 @@ const Home: React.FC = () => {
             type="button"
             aria-label={navActive ? "Close menu" : "Open menu"}
             onClick={toggleMenu}
-            className="group relative flex h-10 w-10 items-center translate-x-3 
-            justify-center rounded-md hover:shadow-lg transition-all"
+            className="group relative flex h-10 w-10 items-center translate-x-3 justify-center rounded-md hover:shadow-lg transition-all"
           >
-            <span className="absolute inset-0 rounded-md  ring-white/20 group-hover:ring-white/30 transition-all" />
+            <span className="absolute inset-0 rounded-md ring-white/20 group-hover:ring-white/30 transition-all" />
             <span className="relative flex flex-col gap-[5px]">
               <span className={`h-[2px] w-5 bg-white transition-all ${navActive ? "translate-y-[7px] rotate-45" : ""}`} />
               <span className={`h-[2px] w-5 bg-white transition-all ${navActive ? "opacity-0" : "opacity-100"}`} />
@@ -426,7 +419,7 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      {/* ✅ menu with per-tile banner hover previews */}
+      {/* menu */}
       {navActive && (
         <section
           ref={(el) => {
@@ -435,7 +428,7 @@ const Home: React.FC = () => {
           className="absolute inset-0 w-screen h-screen flex flex-col bg-black z-50 text-white"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="flex flex-1">
+          <div className="flex flex-1 flex-col sm:flex-row">
             {MENU_TILES.top.map((tile, idx) => (
               <MenuTileBlock
                 key={idx}
@@ -455,7 +448,7 @@ const Home: React.FC = () => {
             ))}
           </div>
 
-          <div className="flex flex-1">
+          <div className="flex flex-1 flex-col sm:flex-row">
             {MENU_TILES.bottom.map((tile, idx) => (
               <MenuTileBlock
                 key={idx}
@@ -467,14 +460,14 @@ const Home: React.FC = () => {
         </section>
       )}
 
-      {/* overlay content (position adjustable) */}
+      {/* overlay content */}
       <div className="absolute inset-0 z-30 pointer-events-none select-none">
         {current.mainImg ? (
           <div className="absolute inset-0 flex items-center justify-center px-6">
             <img
               src={current.mainImg}
               alt="center"
-              className="w-64 sm:w-80 lg:w-96 object-contain drop-shadow-2xl"
+              className="w-56 sm:w-80 lg:w-96 object-contain drop-shadow-2xl"
               draggable={false}
             />
           </div>
@@ -485,6 +478,7 @@ const Home: React.FC = () => {
               "absolute",
               current.textPosClass ?? "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
               "px-6 text-center",
+              "max-lg:w-[92%] max-lg:left-1/2 max-lg:-translate-x-1/2",
             ].join(" ")}
           >
             <h1 className="font-messiri uppercase tracking-[0.22em] text-3xl sm:text-7xl opacity-0 translate-y-4 animate-heroTitle text-white">
@@ -503,7 +497,7 @@ const Home: React.FC = () => {
           e.stopPropagation();
           userAction(prev);
         }}
-        className="absolute left-4 top-1/2 z-30 -translate-y-1/2 text-white/80 hover:text-white text-4xl select-none"
+        className="absolute left-3 sm:left-4 top-1/2 z-30 -translate-y-1/2 text-white/80 hover:text-white text-4xl select-none max-sm:text-3xl"
         aria-label="Previous banner"
       >
         ‹
@@ -514,7 +508,7 @@ const Home: React.FC = () => {
           e.stopPropagation();
           userAction(next);
         }}
-        className="absolute right-4 top-1/2 z-30 -translate-y-1/2 text-white/80 hover:text-white text-4xl select-none"
+        className="absolute right-3 sm:right-4 top-1/2 z-30 -translate-y-1/2 text-white/80 hover:text-white text-4xl select-none max-sm:text-3xl"
         aria-label="Next banner"
       >
         ›

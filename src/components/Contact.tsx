@@ -151,7 +151,7 @@ const ContactPage: React.FC = () => {
               <div className="mt-8 space-y-5 text-white/85">
                 <div>
                   <p className="uppercase tracking-[0.25em] text-xs text-[#d2ae6d]">Email</p>
-                  <p className="mt-1 text-lg break-words">contact@epikuriongrove.com</p>
+                  <p className="mt-1 text-lg break-words">hello@epikuriongrove.com</p>
                 </div>
 
                 <div>
