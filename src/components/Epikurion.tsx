@@ -418,18 +418,19 @@ const EpikurionPage: React.FC = () => {
           src="/assets/img/epik/Lemon-1.png"
           alt="LEMON"
           className="
-      z-50
-      w-24
-      absolute left-72 top-2 -translate-y-1/2
-      md:w-[220px] md:left-10
-       max-lg:mt-0 max-lg:w-[120px] lg:translate-y-20
-    "
+    absolute z-50 select-none pointer-events-none
+    right-4 sm:right-8 lg:right-6
+    top-1/2 -translate-y-1/2
+    w-[120px] sm:w-[160px] md:w-[200px] lg:w-[240px]
+    lg:translate-y-6
+  "
           variants={slideInRight}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.35 }}
           draggable={false}
         />
+
       </div>
 
 
@@ -515,12 +516,24 @@ const EpikurionPage: React.FC = () => {
 
       <section className="relative min-h-screen">
         <motion.img
-          src="/assets/img/epik/1litre.png"
-          alt="One liter bottle"
-          className="w-[40%] rotate-[45deg] -translate-y-[500px] translate-x-[600px] items-center flex justify-center
-                     max-lg:w-[60%] max-lg:rotate-0 max-lg:translate-x-0 max-lg:translate-y-0 max-lg:mx-auto max-lg:mt-10
-                     absolute overflow-hidden"
-        />
+  src="/assets/img/epik/1litre.png"
+  alt="One liter bottle"
+  className="
+    pointer-events-none select-none
+    relative mx-auto mt-10 w-[70%] sm:w-[55%] md:w-[45%]
+
+    
+    lg:absolute
+    
+    -lg:top-4
+    lg:w-[40%]
+    lg:-translate-y-1/2
+    lg:rotate-[45deg]
+    lg:origin-bottom-left
+    overflow-visible
+  "
+/>
+
       </section>
 
       <Footer />

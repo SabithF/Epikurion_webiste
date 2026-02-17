@@ -235,27 +235,7 @@ const AboutPage: React.FC = () => {
             </section>
 
             <section className="flex flex-col lg:flex-row justify-between text-white">
-              <motion.div
-                className="w-full flex flex-col text-left justify-end px-4 sm:px-6 lg:px-20 py-10 sm:py-14 space-y-6"
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true, amount: 0.25 }}
-              >
-                <h2 className="font-messiri text-xl sm:text-2xl lg:text-3xl">
-                  Origin of Epikurion Grove
-                </h2>
-
-                <div className="mt-6 space-y-6 font-messiri text-white/95 text-lg sm:text-xl lg:text-2xl leading-relaxed">
-                  <p>
-                    At the serene foothills of Thermopylae, where history and tradition flow through the land, Epikurion Grove is born. Within a carefully defined ten-kilometre radius, a single ancestral farm nurtures olive trees that have flourished for generations, drawing character from mineral-rich soils and the Mediterranean sun.
-                  </p>
-
-                  <p>
-                    The grove is tended by its third-generation farmers, who produce olives of exceptional quality. Rare and limited by nature, each harvest yields a fleeting treasure: a golden oil with a vibrant aroma of sun-kissed olives, a gentle hint of peppery warmth, and a rich, silky flavour that lingers on the palate. Every drop is a taste to savour, destined for those who truly appreciate excellence and cherished by connoisseurs.
-                  </p>
-                </div>
-              </motion.div>
+              
 
               <motion.div
                 className="w-full"
@@ -286,16 +266,20 @@ const AboutPage: React.FC = () => {
                 viewport={{ once: true, amount: 0.25 }}
               >
                 <p>
-                  Harvest is a moment of patience and precision. Olives are collected with care across the season, combining the skill of practiced hands with subtle modern techniques. From grove to press, every step is deliberate. Only the finest fruit is accepted, producing a golden oil of remarkable clarity and nuance.
+                  Harvest is a moment of patience and precision. Olives are collected with care across the season, 
+                  combining the skill of practiced hands with subtle modern techniques. From grove to press, every step is deliberate. 
+                  Only the finest fruit is accepted, producing a golden oil of remarkable clarity and nuance.
                   <br />
+                  Epikurion Grove is a single-farm, seasonal reserve, composed of a carefully selected blend of olive varieties 
+                  chosen for harmony rather than volume. Each variety contributes its own subtle character, creating an oil that is elegant, 
+                  expressive, and quietly complex.  
                   <br />
-                  Epikurion Grove is a single-farm, seasonal reserve, composed of a carefully selected blend of olive varieties chosen for harmony rather than volume. Each variety contributes its own subtle character, creating an oil that is elegant, expressive, and quietly complex. <br />
-                  For generations, this golden oil remained a family secret, shared only within Greece at family tables and among trusted circles. Today, in limited seasons and limited quantities, it is offered beyond our borders — shared from our family to yours.
-                  Every bottle reflects its origin: ancient land, living tradition, and contemporary craftsmanship. From Thermopylae to the modern table, Epikurion Grove embodies authenticity, restraint, and enduring Greek excellence.
-                  <br />  <br />    For generations, this golden oil remained a family secret, shared only within Greece at family tables and among trusted circles. Today, in limited seasons and limited quantities, it is offered beyond our borders — shared from our family to yours.
-                  Every bottle reflects its origin: ancient land, living tradition, and contemporary craftsmanship. From Thermopylae to the modern table, Epikurion Grove embodies authenticity, restraint, and enduring Greek excellence.
-                  <br /><br />
-                  Every bottle reflects its origin: ancient land, living tradition, and contemporary craftsmanship. From Thermopylae to the modern table, Epikurion Grove embodies authenticity, restraint, and enduring Greek excellence.
+                  For generations, this golden oil remained a family secret, shared only within Greece at family tables and among trusted circles. 
+                  Today, in limited seasons and limited quantities, it is offered beyond our borders — shared from our family to yours. 
+                  <br /> 
+                  Every bottle reflects its origin: ancient land, living tradition, and contemporary 
+                  craftsmanship. From Thermopylae to the modern table, Epikurion Grove embodies authenticity, restraint, 
+                  and enduring Greek excellence.
 
                 </p>
 

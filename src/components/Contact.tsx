@@ -20,6 +20,10 @@ const ContactPage: React.FC = () => {
   const navigate = useNavigate();
   const [navActive, setNavActive] = useState(false);
 
+  // Web3Forms states
+  const [result, setResult] = useState("");
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     if (!navActive) return;
     const prev = document.body.style.overflow;
@@ -33,6 +37,48 @@ const ContactPage: React.FC = () => {
     e?.stopPropagation();
     setNavActive((v) => !v);
   };
+
+const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+  setLoading(true);
+  setResult("Sending...");
+
+  const form = event.currentTarget;
+  const formData = new FormData(form);
+
+  formData.append("access_key", "15dd4d2a-7e7d-42d2-88c7-9e20ee3b8fc6");
+
+  const subject = formData.get("subject");
+  if (!subject || String(subject).trim() === "") {
+    formData.set("subject", "Epikurion Contact Form");
+  }
+
+  try {
+    const res = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData,
+      headers: { Accept: "application/json" },
+    });
+
+    const data = await res.json();
+
+    if (res.ok && (data?.success === true || data?.status === "success")) {
+      form.reset();                         
+      setResult("Form submitted ✔");        
+
+      // auto hide after 4 seconds
+      setTimeout(() => setResult(""), 4000);
+      return;
+    }
+
+    setResult(data?.message || "Something went wrong.");
+  } catch {
+    setResult("Submission failed. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <main className="min-h-screen font-messiri bg-[#0c2000] text-white overflow-hidden">
@@ -156,7 +202,6 @@ const ContactPage: React.FC = () => {
 
                 <div>
                   <p className="uppercase tracking-[0.25em] text-xs text-[#d2ae6d]">Phone</p>
-                  {/* ✅ no nested <p> */}
                   <div className="mt-1 text-lg space-y-1 leading-relaxed">
                     <p>+61 478 666 813 {" | "} +94 773 065 999</p>
                     <p>+30 694 020 8916</p>
@@ -180,10 +225,15 @@ const ContactPage: React.FC = () => {
                 Share a few details and we’ll get back to you.
               </p>
 
-              <form className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-5" onSubmit={(e) => e.preventDefault()}>
+              <form className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-5" onSubmit={onSubmit}>
+                {/* Honeypot (spam protection) */}
+                <input type="checkbox" name="botcheck" className="hidden" tabIndex={-1} />
+
                 <label className="flex flex-col gap-2">
                   <span className="text-sm uppercase tracking-[0.25em]">Name</span>
                   <input
+                    name="name"
+                    required
                     className="h-12 rounded-xl px-4 bg-white/80 focus:bg-white outline-none ring-1 ring-[#314036]/10 focus:ring-[#314036]/30 transition"
                     placeholder="Your name"
                   />
@@ -192,7 +242,9 @@ const ContactPage: React.FC = () => {
                 <label className="flex flex-col gap-2">
                   <span className="text-sm uppercase tracking-[0.25em]">Email</span>
                   <input
+                    name="email"
                     type="email"
+                    required
                     className="h-12 rounded-xl px-4 bg-white/80 focus:bg-white outline-none ring-1 ring-[#314036]/10 focus:ring-[#314036]/30 transition"
                     placeholder="you@example.com"
                   />
@@ -201,6 +253,7 @@ const ContactPage: React.FC = () => {
                 <label className="flex flex-col gap-2 sm:col-span-2">
                   <span className="text-sm uppercase tracking-[0.25em]">Subject</span>
                   <input
+                    name="subject"
                     className="h-12 rounded-xl px-4 bg-white/80 focus:bg-white outline-none ring-1 ring-[#314036]/10 focus:ring-[#314036]/30 transition"
                     placeholder="What is this about?"
                   />
@@ -209,6 +262,8 @@ const ContactPage: React.FC = () => {
                 <label className="flex flex-col gap-2 sm:col-span-2">
                   <span className="text-sm uppercase tracking-[0.25em]">Message</span>
                   <textarea
+                    name="message"
+                    required
                     className="min-h-[160px] rounded-xl p-4 bg-white/80 focus:bg-white outline-none ring-1 ring-[#314036]/10 focus:ring-[#314036]/30 transition resize-none"
                     placeholder="Write your message..."
                   />
@@ -221,11 +276,19 @@ const ContactPage: React.FC = () => {
 
                   <button
                     type="submit"
-                    className="h-12 px-8 rounded-xl bg-[#314036] text-[#d2ae6d] hover:opacity-90 transition uppercase tracking-[0.25em] text-sm"
+                    disabled={loading}
+                    className="h-12 px-8 rounded-xl bg-[#314036] text-[#d2ae6d] hover:opacity-90 transition uppercase tracking-[0.25em] text-sm disabled:opacity-60"
                   >
-                    Send
+                    {loading ? "Sending..." : "Send"}
                   </button>
                 </div>
+
+                {/* Result message */}
+                {result && (
+                  <div className="sm:col-span-2">
+                    <p className="text-sm text-[#314036]/80">{result}</p>
+                  </div>
+                )}
               </form>
             </div>
 
