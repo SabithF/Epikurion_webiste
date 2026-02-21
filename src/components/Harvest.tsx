@@ -80,7 +80,7 @@ const Harvest: React.FC = () => {
             </header>
 
             <motion.div
-              className="absolute top-1/2 -translate-y-1/2 left-4 sm:left-10 lg:left-20 z-20"
+              className="absolute top-36 md:top-1/2 -translate-y-1/2 left-4 sm:left-10 lg:left-20 z-20"
               variants={fadeUp}
               initial="hidden"
               animate="show"
@@ -161,8 +161,10 @@ const Harvest: React.FC = () => {
               draggable={false}
             />
 
-            <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+            <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 sm:py-14 overflow-hidden">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+
+                {/* LEFT CONTENT */}
                 <motion.div
                   className="lg:col-span-7"
                   variants={fadeUp}
@@ -174,7 +176,7 @@ const Harvest: React.FC = () => {
                     Immediate Cleaning & Crushing
                   </h2>
 
-                  <div className="mt-6 space-y-6 font-messiri text-white text-base sm:text-xl lg:text-2xl leading-relaxed">
+                  <div className="mt-6 space-y-6 font-messiri text-white text-base sm:text-lg lg:text-xl leading-relaxed">
                     <motion.p
                       variants={fadeUp}
                       initial="hidden"
@@ -182,41 +184,32 @@ const Harvest: React.FC = () => {
                       viewport={{ once: true, amount: 0.25 }}
                       transition={{ delay: 0.06, duration: 0.9, ease }}
                     >
-                      Within hours of harvest — and never exceeding 24 hours — the olives are transported to the mill. There, they are carefully washed and crushed into a fragrant paste using modern stainless-steel hammer mills, guided by time-honoured milling principles to preserve the olive’s natural character. </motion.p>
-
-                    {/* <h2 className="font-messiri text-yellowPrimary text-xl sm:text-2xl lg:text-3xl">
-                      Malaxation & Extraction
-                    </h2>
-                    <motion.p
-                      variants={fadeUp}
-                      initial="hidden"
-                      whileInView="show"
-                      viewport={{ once: true, amount: 0.25 }}
-                      transition={{ delay: 0.12, duration: 0.9, ease }}
-                    >
-                      After crushing, the olive paste is gently malaxed to allow the natural oil droplets to unite. This controlled mechanical process prepares the paste for efficient separation while maintaining balance and consistency in flavour.</motion.p>
-                 */}
-                      </div> 
+                      Within hours of harvest — and never exceeding 24 hours — the olives are transported to the mill.
+                      There, they are carefully washed and crushed into a fragrant paste using modern stainless-steel
+                      hammer mills, guided by time-honoured milling principles to preserve the olive’s natural character.
+                    </motion.p>
+                  </div>
                 </motion.div>
 
+                {/* RIGHT IMAGE */}
                 <motion.div
-                  className="lg:col-span-5 flex justify-center lg:justify-end lg:sm:-translate-y-32"
-
+                  className="lg:col-span-5 flex justify-center lg:justify-end"
                 >
                   <motion.img
                     src="/assets/img/harvest/olive-bunch.png"
                     alt="Olive"
-                    className=" w-64 sm:w-80 lg:w-[500px] -mt-10 sm:-mt-16 lg:-mt-72 drop-shadow-2xl"
+                    className="w-44 sm:w-40 lg:w-[250px] drop-shadow-2xl"
                     draggable={false}
                     whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.25 }}
                   />
                 </motion.div>
+
               </div>
             </div>
           </section>
 
-          <section className="bg-[#bda633] py-10">
+          <section className="bg-[#bda633] ">
             <div className="flex flex-col lg:flex-row h-full">
               <motion.div
                 className="w-full lg:w-[80%]"
@@ -233,7 +226,7 @@ const Harvest: React.FC = () => {
                 />
               </motion.div>
 
-              
+
 
               <motion.div
                 className="w-full flex flex-col items-center space-y-6 justify-center px-4 sm:px-6 py-8 lg:py-0"
@@ -243,16 +236,16 @@ const Harvest: React.FC = () => {
                 viewport={{ once: true, amount: 0.25 }}
               >
                 <h2 className="font-messiri text-black text-xl sm:text-2xl lg:text-3xl">
-                    Malaxation & Extraction
-                  </h2>
+                  Malaxation & Extraction
+                </h2>
                 <p className="text-center px-2 sm:px-6 mx-0 sm:mx-5 text-white text-base sm:text-xl lg:text-2xl leading-relaxed">
-                 After crushing, the olive paste is gently malaxed to allow the natural oil droplets to unite. This controlled mechanical process prepares the paste for efficient separation while maintaining balance and consistency in flavour. </p>
+                  After crushing, the olive paste is gently malaxed to allow the natural oil droplets to unite. This controlled mechanical process prepares the paste for efficient separation while maintaining balance and consistency in flavour. </p>
               </motion.div>
             </div>
 
             <div className="flex flex-col-reverse lg:flex-row h-full">
-              
-              
+
+
               <motion.div
                 className="w-full flex flex-col items-center space-y-6 justify-center px-4 sm:px-6 py-8 lg:py-0"
                 variants={fadeUp}
@@ -261,8 +254,8 @@ const Harvest: React.FC = () => {
                 viewport={{ once: true, amount: 0.25 }}
               >
                 <h2 className="font-messiri text-black text-xl sm:text-2xl lg:text-3xl">
-                    Separation & Natural Clarification
-                  </h2>
+                  Separation & Natural Clarification
+                </h2>
 
                 <p className="text-center px-2 sm:px-6 mx-0 sm:mx-5 text-white text-base sm:text-xl lg:text-2xl leading-relaxed">
                   Using centrifugal decanters and vertical separators, the oil is mechanically separated from water and olive solids. It is then lightly filtered or naturally settled to achieve clarity and stability before bottling.
