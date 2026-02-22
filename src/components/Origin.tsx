@@ -206,7 +206,7 @@ const AboutPage: React.FC = () => {
                           transition={{ delay: 0.06, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                         >
                           At the serene foothills of Thermopylae, where history and tradition flow through
-                          the land, Epikurion Grove is born. Within a carefully defined ten-kilometer
+                          the land, Epikurion Grove is born. Within a carefully defined ten-kilometre
                           radius, a single ancestral farm nurtures olive trees that have flourished for
                           generations, drawing character from mineral-rich soils and the Mediterranean sun.
                         </motion.p>
@@ -258,9 +258,7 @@ const AboutPage: React.FC = () => {
                   >
                     <div className="space-y-6 font-messiri text-white/95 text-[15px] sm:text-lg lg:text-xl leading-relaxed">
                       <p>
-                        Harvest is a moment of patience and precision. Olives are collected with care across the season,
-                        combining the skill of practiced hands with subtle modern techniques. From grove to press, every step is deliberate.
-                        Only the finest fruit is accepted, producing a golden oil of remarkable clarity and nuance.
+                       Harvest is a moment of patience and precision. Olives are gently collected throughout the season, with expert hands guiding each delicate step. Modern techniques blend seamlessly with tradition, ensuring the utmost care at every stage. From grove to press, only the finest fruit is selected, yielding a golden oil of unparalleled clarity and exquisite nuance.
                       </p>
 
                       <p>

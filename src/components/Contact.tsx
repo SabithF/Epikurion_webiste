@@ -64,7 +64,7 @@ const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 
     if (res.ok && (data?.success === true || data?.status === "success")) {
       form.reset();                         
-      setResult("Form submitted ✔");        
+      setResult("✅ Thanks! Your message has been sent successfully. We’ll get back to you shortly.");        
 
       // auto hide after 4 seconds
       setTimeout(() => setResult(""), 4000);

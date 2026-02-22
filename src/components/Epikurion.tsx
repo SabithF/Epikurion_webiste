@@ -311,7 +311,7 @@ const EpikurionPage: React.FC = () => {
               </motion.h1>
 
               <motion.div
-                className="w-[90%] text-left px-2 text-white text-base pt-10 sm:text-xl lg:text-2xl 
+                className="w-[90%] text-left px-2 text-white text-base py-5  sm:text-sm lg:text-lg
                 leading-8 max-lg:w-full max-lg:leading-relaxed"
                 variants={fadeUp}
                 initial="hidden"
@@ -340,7 +340,8 @@ const EpikurionPage: React.FC = () => {
             <motion.img
               src="/assets/img/epik/Epikurion Grove Bottle GiftB.png"
               alt="epikurion gift bottle"
-              className="w-[50%] -translate-y-80 translate-x-32 z-20 abstract max-lg:w-[58%] max-lg:translate-x-0 max-lg:translate-y-0 max-lg:mx-auto"
+              className="w-[30%] lg:w-[40%] -translate-y-80 
+              translate-x-32 z-20 abstract  max-lg:translate-x-0 max-lg:translate-y-0 max-lg:mx-auto"
               variants={slideInRight}
               initial="hidden"
               whileInView="show"
@@ -354,8 +355,8 @@ const EpikurionPage: React.FC = () => {
               className="
                 absolute
                 -translate-y-[22rem] translate-x-24
-                z-50 w-[78%] -bottom-48 -right-20
-                max-lg:static max-lg:w-[62%] max-lg:mx-auto max-lg:mt-6 max-lg:translate-x-0 max-lg:translate-y-0
+                z-50 w-[44%] -bottom-44 -right-2
+                max-lg:static lg:w-[62%] max-lg:mx-auto max-lg:mt-6 max-lg:translate-x-0 max-lg:translate-y-0
               "
               variants={slideInLeft}
               initial="hidden"
@@ -418,11 +419,11 @@ const EpikurionPage: React.FC = () => {
           src="/assets/img/epik/Lemon-1.png"
           alt="LEMON"
           className="
-    absolute z-50 select-none pointer-events-none
-    right-4 sm:right-8 lg:right-6
-    top-1/2 -translate-y-1/2
-    w-[120px] sm:w-[160px] md:w-[200px] lg:w-[240px]
-    lg:translate-y-6
+          absolute z-50 select-none pointer-events-none
+          right-4 sm:right-8 lg:left-2
+          top-1/2 -translate-y-1/2
+          w-[120px] sm:w-[160px] md:w-[200px] lg:w-[200px]
+          lg:translate-y-6
   "
           variants={slideInRight}
           initial="hidden"
@@ -436,112 +437,111 @@ const EpikurionPage: React.FC = () => {
 
       {/* ALL BOTTLES */}
       {/* ALL BOTTLES */}
-<section className="relative w-full flex flex-col items-center uppercase py-6">
+      <section className="relative w-full flex flex-col items-center uppercase py-6">
 
 
-  <div className="pt-40 lg:pt-48 px-6 sm:px-12 lg:px-24 w-full flex Z-50 justify-center">
-    <motion.img
-      src="/assets/img/epik/all-bottles-darl.png"
-      alt="all bottles"
-      variants={fadeIn}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, amount: 0.3 }}
-      draggable={false}
-      className="w-full max-w-6xl Z-50"
-    />
-  </div>
+        <div className="pt-40 lg:pt-48 px-6 sm:px-12 lg:px-24 w-full flex Z-50 justify-center">
+          <motion.img
+            src="/assets/img/epik/all-bottles-darl.png"
+            alt="all bottles"
+            variants={fadeIn}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.3 }}
+            draggable={false}
+            className="w-full max-w-6xl Z-50"
+          />
+        </div>
 
-  <motion.div
-    className="pt-16 lg:pt-24 pb-10 text-center text-xl sm:text-3xl lg:text-4xl tracking-[0.05em] leading-relaxed max-w-3xl px-6"
-    variants={fadeUp}
-    initial="hidden"
-    whileInView="show"
-    viewport={{ once: true, amount: 0.6 }}
-  >
-    <span className="text-yellowPrimary">
-      Crafted with Tradition, Bottled with Care.
-    </span>
-    <br />
-    A Single-Farm extra virgin olive oil of exceptional flavour and purity
-  </motion.div>
-</section>
+        <motion.div
+          className="pt-16 lg:pt-24 pb-10 text-center text-xl sm:text-3xl lg:text-4xl tracking-[0.05em] leading-relaxed max-w-3xl px-6"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.6 }}
+        >
+          <span className="text-yellowPrimary">
+            Crafted with Tradition, Bottled with Care.
+          </span>
+          <br />
+          A Single-Farm extra virgin olive oil of exceptional flavour and purity
+        </motion.div>
+      </section>
 
-{/* CERT */}
-<section className="bg-[#3e591e] uppercase px-6 sm:px-12 lg:px-16 py-14 lg:py-20 text-base sm:text-xl lg:text-2xl">
-  <motion.h1
-    className="text-yellowPrimary text-base sm:text-xl lg:text-3xl pb-2 tracking-wider"
-    variants={fadeUp}
-    initial="hidden"
-    whileInView="show"
-    viewport={{ once: true, amount: 0.7 }}
-  >
-    Certification & Analysis
-  </motion.h1>
+      {/* CERT */}
+      <section className="bg-[#3e591e] uppercase px-6 sm:px-12 lg:px-16 py-14 lg:py-20 text-base sm:text-xl lg:text-2xl">
+        <motion.h1
+          className="text-yellowPrimary text-base sm:text-xl lg:text-3xl pb-2 tracking-wider"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.7 }}
+        >
+          Certification & Analysis
+        </motion.h1>
 
-  <motion.p
-    className="text-white tracking-wider max-w-4xl"
-    variants={fadeUp}
-    initial="hidden"
-    whileInView="show"
-    viewport={{ once: true, amount: 0.6 }}
-  >
-    Each harvest is evaluated through internal quality checks and verified by
-    independent laboratory analysis to confirm compliance with extra virgin olive
-    oil standards.
-  </motion.p>
-</section>
+        <motion.p
+          className="text-white tracking-wider max-w-4xl"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.6 }}
+        >
+          Each harvest is evaluated through internal quality checks and verified by
+          independent laboratory analysis to confirm compliance with extra virgin olive
+          oil standards.
+        </motion.p>
+      </section>
 
-{/* WHY CHOOSE */}
-<section className="uppercase px-6 sm:px-12 lg:px-16 pt-14 lg:pt-16 text-base sm:text-xl lg:text-2xl flex flex-col">
-  <motion.h1
-    className="text-yellowPrimary text-base sm:text-xl lg:text-3xl pb-2"
-    variants={fadeUp}
-    initial="hidden"
-    whileInView="show"
-    viewport={{ once: true, amount: 0.7 }}
-  >
-    Why Choose Our Olive Oil
-  </motion.h1>
+      {/* WHY CHOOSE */}
+      <section className="uppercase px-6 sm:px-12 lg:px-16 pt-14 lg:pt-16 text-base sm:text-xl lg:text-2xl flex flex-col">
+        <motion.h1
+          className="text-yellowPrimary text-base sm:text-xl lg:text-3xl pb-2"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.7 }}
+        >
+          Why Choose Our Olive Oil
+        </motion.h1>
 
-  <motion.div
-    className="text-black tracking-wider max-w-4xl"
-    variants={fadeUp}
-    initial="hidden"
-    whileInView="show"
-    viewport={{ once: true, amount: 0.6 }}
-  >
-    <ul className="space-y-2 list-inside">
-      <li>- 100% single-farm, farm-to-bottle traceability</li>
-      <li>- Produced using sustainable farming methods</li>
-      <li>- Slow extraction for maximum nutrients</li>
-      <li>- International quality verification</li>
-    </ul>
-  </motion.div>
-</section>
+        <motion.div
+          className="text-black tracking-wider max-w-4xl"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.6 }}
+        >
+          <ul className="space-y-2 list-inside">
+            <li>- 100% single-farm, farm-to-bottle traceability</li>
+            <li>- Produced using sustainable farming methods</li>
+            <li>- Slow extraction for maximum nutrients</li>
+            <li>- International quality verification</li>
+          </ul>
+        </motion.div>
+      </section>
 
 
-      <section className="relative min-h-screen">
+      <section className="relative min-h-screen overflow-visible">
         <motion.img
-  src="/assets/img/epik/1litre.png"
-  alt="One liter bottle"
-  className="
-    pointer-events-none select-none
-    relative mx-auto mt-10 w-[70%] sm:w-[55%] md:w-[45%]
+          src="/assets/img/epik/1litre.png"
+          alt="One liter bottle"
+          className="
+      pointer-events-none select-none
+      relative mx-auto mt-10 w-[70%] sm:w-[40%] md:w-[45%]
 
-    
-    lg:absolute
-    
-    -lg:top-4
-    lg:w-[35%]
-    lg:-translate-y-[900px]
-    -lg:-translate-x-[600px]
-    lg:rotate-[50deg]
-    lg:origin-bottom-left
-    overflow-visible
-  "
-/>
+      lg:absolute lg:w-[35%]
+      lg:rotate-[50deg] lg:origin-bottom-left
 
+      lg:top-4
+
+      lg:-translate-y-[900px]
+
+      [@media(min-width:1027px)_and_(max-width:1375px)]:-translate-y-[400px]
+      [@media(min-width:1027px)_and_(max-width:1375px)]:rotate-[45deg]
+      [@media(min-width:1027px)_and_(max-width:1375px)]:w-[30%]
+    "
+        />
       </section>
 
       <Footer />
