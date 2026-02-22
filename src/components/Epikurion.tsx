@@ -533,9 +533,10 @@ const EpikurionPage: React.FC = () => {
     lg:absolute
     
     -lg:top-4
-    lg:w-[40%]
-    lg:-translate-y-1/2
-    lg:rotate-[45deg]
+    lg:w-[35%]
+    lg:-translate-y-[900px]
+    -lg:-translate-x-[600px]
+    lg:rotate-[50deg]
     lg:origin-bottom-left
     overflow-visible
   "

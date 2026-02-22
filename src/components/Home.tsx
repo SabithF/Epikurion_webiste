@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
 
 type ClickMode = "route" | "next" | "none";
 
@@ -71,10 +72,6 @@ const bannerDetails: Banner[] = [
     clickMode: "route",
     textPosClass: "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
   },
-
-  // ✅ Epikurion banner:
-  // - Desktop stays EXACTLY as you had (absolute -top-72 left-20 etc.)
-  // - Mobile becomes the same style as other banners (centered like others)
   {
     imageSrc: "/assets/banners/banner-41.png",
     altText: "banner-4",
@@ -83,7 +80,9 @@ const bannerDetails: Banner[] = [
         <div className="flex justify-center items-center flex-col">
           <span className="text-white text-[30px] absolute -top-72 left-20 uppercase max-lg:static max-lg:text-inherit max-lg:tracking-[0.22em]">
             Crafted by generations <br />{" "}
-            <span className="text-[40%] text-[#d2ae6d]">Reserved for connoisseurs</span>
+            <span className="text-[40%] text-[#d2ae6d]">
+              Reserved for connoisseurs
+            </span>
           </span>
           <span className="text-white absolute -top-60 left-20 text-sm pt-5 max-lg:hidden"></span>
         </div>
@@ -92,10 +91,8 @@ const bannerDetails: Banner[] = [
     subText: <></>,
     link: "/epikurion",
     clickMode: "route",
-    // ✅ On mobile, position like other banners (center)
     textPosClass: "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
   },
-
   {
     imageSrc: "/assets/banners/banner-5.png",
     altText: "contact",
@@ -163,10 +160,10 @@ const MENU_TILES: {
   ],
 };
 
-const MenuTileBlock: React.FC<{
-  tile: MenuTile;
-  onClick?: () => void;
-}> = ({ tile, onClick }) => {
+const MenuTileBlock: React.FC<{ tile: MenuTile; onClick?: () => void }> = ({
+  tile,
+  onClick,
+}) => {
   const clickable = Boolean(onClick);
   return (
     <div
@@ -191,6 +188,8 @@ const MenuTileBlock: React.FC<{
         src={tile.previewSrc}
         alt=""
         draggable={false}
+        loading="lazy"
+        decoding="async"
         className={[
           "absolute inset-0 h-full w-full object-cover",
           "opacity-0 scale-110",
@@ -213,6 +212,15 @@ const MenuTileBlock: React.FC<{
       </div>
     </div>
   );
+};
+
+/** ✅ Menu animation */
+const easeOut = [0.16, 1, 0.3, 1] as const;
+
+const menuVariants: Variants = {
+  hidden: { y: "-100%", opacity: 0 },
+  show: { y: 0, opacity: 1, transition: { duration: 0.45, ease: easeOut } },
+  exit: { y: "-100%", opacity: 0, transition: { duration: 0.3, ease: easeOut } },
 };
 
 const Home: React.FC = () => {
@@ -240,13 +248,26 @@ const Home: React.FC = () => {
     window.setTimeout(() => setIsPaused(false), 8500);
   };
 
+  // ✅ ESC close + lock scroll when menu open
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setNavActive(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+
+    document.body.style.overflow = navActive ? "hidden" : "";
+
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [navActive]);
+
   const wheelLock = useRef(false);
   const touchStartX = useRef<number | null>(null);
   const dragStartX = useRef<number | null>(null);
   const dragging = useRef(false);
   const moved = useRef(false);
-
-  const menuRef = useRef<HTMLElement | null>(null);
 
   const onTouchStart: React.TouchEventHandler<HTMLElement> = (e) => {
     touchStartX.current = e.touches[0]?.clientX ?? null;
@@ -316,8 +337,7 @@ const Home: React.FC = () => {
   const onBannerClick: React.MouseEventHandler<HTMLElement> = () => {
     if (moved.current) return;
 
-    const mode: ClickMode =
-      current.clickMode ?? (current.link ? "route" : "none");
+    const mode: ClickMode = current.clickMode ?? (current.link ? "route" : "none");
     if (mode === "none") return;
 
     if (mode === "next") {
@@ -331,26 +351,15 @@ const Home: React.FC = () => {
   };
 
   const isClickable = (() => {
-    const mode: ClickMode =
-      current.clickMode ?? (current.link ? "route" : "none");
+    const mode: ClickMode = current.clickMode ?? (current.link ? "route" : "none");
     return mode !== "none";
   })();
 
-  const cursorClass = isClickable
-    ? "cursor-pointer"
-    : "cursor-grab active:cursor-grabbing";
+  const cursorClass = isClickable ? "cursor-pointer" : "cursor-grab active:cursor-grabbing";
 
   const toggleMenu = (e?: React.SyntheticEvent) => {
     e?.stopPropagation();
-    setNavActive((v) => {
-      const nextVal = !v;
-      if (!v && nextVal) {
-        window.requestAnimationFrame(() => {
-          menuRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-        });
-      }
-      return nextVal;
-    });
+    setNavActive((v) => !v);
   };
 
   const go = (path: string) => {
@@ -361,15 +370,15 @@ const Home: React.FC = () => {
   return (
     <section
       className={`relative h-screen w-screen overflow-hidden ${cursorClass}`}
-      onClick={onBannerClick}
-      onWheel={onWheel}
-      onTouchStart={onTouchStart}
-      onTouchMove={onTouchMove}
-      onTouchEnd={onTouchEnd}
-      onMouseDown={onMouseDown}
-      onMouseMove={onMouseMove}
-      onMouseUp={onMouseUp}
-      onMouseLeave={onMouseUp}
+      onClick={navActive ? undefined : onBannerClick} // ✅ stop banner click when menu open
+      onWheel={navActive ? undefined : onWheel}
+      onTouchStart={navActive ? undefined : onTouchStart}
+      onTouchMove={navActive ? undefined : onTouchMove}
+      onTouchEnd={navActive ? undefined : onTouchEnd}
+      onMouseDown={navActive ? undefined : onMouseDown}
+      onMouseMove={navActive ? undefined : onMouseMove}
+      onMouseUp={navActive ? undefined : onMouseUp}
+      onMouseLeave={navActive ? undefined : onMouseUp}
       style={{ touchAction: "none" }}
     >
       {/* banners track */}
@@ -388,12 +397,14 @@ const Home: React.FC = () => {
               alt={b.altText}
               className="h-full w-full object-cover"
               draggable={false}
+              loading="lazy"
+              decoding="async"
             />
           </div>
         ))}
       </div>
 
-      {/* ✅ overlay gradient: REMOVE for first banner only */}
+      {/* overlay gradient: REMOVE for first banner only */}
       {active !== 0 && (
         <div className="absolute inset-0 z-10 pointer-events-none">
           <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/10 to-black/35 max-lg:from-black/55 max-lg:via-black/20 max-lg:to-black/55" />
@@ -411,54 +422,69 @@ const Home: React.FC = () => {
           >
             <span className="absolute inset-0 rounded-md ring-white/20 group-hover:ring-white/30 transition-all" />
             <span className="relative flex flex-col gap-[5px]">
-              <span className={`h-[2px] w-5 bg-white transition-all ${navActive ? "translate-y-[7px] rotate-45" : ""}`} />
-              <span className={`h-[2px] w-5 bg-white transition-all ${navActive ? "opacity-0" : "opacity-100"}`} />
-              <span className={`h-[2px] w-5 bg-white transition-all ${navActive ? "-translate-y-[7px] -rotate-45" : ""}`} />
+              <span
+                className={`h-[2px] w-5 bg-white transition-all ${
+                  navActive ? "translate-y-[7px] rotate-45" : ""
+                }`}
+              />
+              <span
+                className={`h-[2px] w-5 bg-white transition-all ${
+                  navActive ? "opacity-0" : "opacity-100"
+                }`}
+              />
+              <span
+                className={`h-[2px] w-5 bg-white transition-all ${
+                  navActive ? "-translate-y-[7px] -rotate-45" : ""
+                }`}
+              />
             </span>
           </button>
         </div>
       </div>
 
-      {/* menu */}
-      {navActive && (
-        <section
-          ref={(el) => {
-            menuRef.current = el;
-          }}
-          className="absolute inset-0 w-screen h-screen flex flex-col bg-black z-50 text-white"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <div className="flex flex-1 flex-col sm:flex-row">
-            {MENU_TILES.top.map((tile, idx) => (
-              <MenuTileBlock
-                key={idx}
-                tile={tile}
-                onClick={tile.path ? () => go(tile.path!) : undefined}
-              />
-            ))}
-          </div>
+      {/* ✅ Animated full-screen menu */}
+      <AnimatePresence>
+        {navActive && (
+          <motion.section
+            variants={menuVariants}
+            initial="hidden"
+            animate="show"
+            exit="exit"
+            className="fixed inset-0 w-screen h-screen flex flex-col bg-black z-[999] text-white"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex flex-1 flex-col sm:flex-row">
+              {MENU_TILES.top.map((tile, idx) => (
+                <MenuTileBlock
+                  key={idx}
+                  tile={tile}
+                  onClick={tile.path ? () => go(tile.path!) : undefined}
+                />
+              ))}
+            </div>
 
-          <div className="flex flex-1">
-            {MENU_TILES.middle.map((tile, idx) => (
-              <MenuTileBlock
-                key={idx}
-                tile={tile}
-                onClick={tile.path ? () => go(tile.path!) : undefined}
-              />
-            ))}
-          </div>
+            <div className="flex flex-1">
+              {MENU_TILES.middle.map((tile, idx) => (
+                <MenuTileBlock
+                  key={idx}
+                  tile={tile}
+                  onClick={tile.path ? () => go(tile.path!) : undefined}
+                />
+              ))}
+            </div>
 
-          <div className="flex flex-1 flex-col sm:flex-row">
-            {MENU_TILES.bottom.map((tile, idx) => (
-              <MenuTileBlock
-                key={idx}
-                tile={tile}
-                onClick={tile.path ? () => go(tile.path!) : undefined}
-              />
-            ))}
-          </div>
-        </section>
-      )}
+            <div className="flex flex-1 flex-col sm:flex-row">
+              {MENU_TILES.bottom.map((tile, idx) => (
+                <MenuTileBlock
+                  key={idx}
+                  tile={tile}
+                  onClick={tile.path ? () => go(tile.path!) : undefined}
+                />
+              ))}
+            </div>
+          </motion.section>
+        )}
+      </AnimatePresence>
 
       {/* overlay content */}
       <div className="absolute inset-0 z-30 pointer-events-none select-none">
@@ -469,6 +495,8 @@ const Home: React.FC = () => {
               alt="center"
               className="w-56 sm:w-80 lg:w-96 object-contain drop-shadow-2xl"
               draggable={false}
+              loading="lazy"
+              decoding="async"
             />
           </div>
         ) : (
@@ -476,7 +504,8 @@ const Home: React.FC = () => {
             key={active}
             className={[
               "absolute",
-              current.textPosClass ?? "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
+              current.textPosClass ??
+                "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
               "px-6 text-center",
               "max-lg:w-[92%] max-lg:left-1/2 max-lg:-translate-x-1/2",
             ].join(" ")}
