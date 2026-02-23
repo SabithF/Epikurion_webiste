@@ -196,7 +196,8 @@ const AboutPage: React.FC = () => {
                         Origin of Epikurion Grove
                       </h2>
 
-                      <div className="mt-6 space-y-6 font-messiri text-white/95 text-lg sm:text-xl lg:text-2xl leading-relaxed">
+                      <div className="mt-6 space-y-6 font-messiri text-white/95 
+                      text-lg sm:text-[1.5rem] lg:text-[1.5rem] leading-relaxed">
 
                         <motion.p
                           variants={fadeUp}
@@ -256,26 +257,20 @@ const AboutPage: React.FC = () => {
                     whileInView="show"
                     viewport={{ once: true, amount: 0.25 }}
                   >
-                    <div className="space-y-6 font-messiri text-white/95 text-[15px] sm:text-lg lg:text-xl leading-relaxed">
+                    <div className="space-y-6 font-messiri text-white/95 
+                    text-[15px] sm:text-[1.25rem] lg:text-[1.25rem] leading-relaxed">
                       <p>
-                       Harvest is a moment of patience and precision. Olives are gently collected throughout the season, with expert hands guiding each delicate step. Modern techniques blend seamlessly with tradition, ensuring the utmost care at every stage. From grove to press, only the finest fruit is selected, yielding a golden oil of unparalleled clarity and exquisite nuance.
+                     Harvest is a moment of patience and precision. Olives are gently collected throughout the season, with expert hands guiding each delicate step. Modern techniques blend seamlessly with tradition, ensuring the utmost care at every stage. From grove to press, only the finest fruit is selected, yielding a golden oil of unparalleled clarity and exquisite nuance.
+                      </p>
+                      <p>
+                        Epikurion Grove is an exclusive, single-estate reserve, meticulously crafted from a select blend of olive varieties chosen for their harmonious synergy, not their quantity. Each variety imparts its unique, delicate character, resulting in an oil that is refined, expressive, and quietly complex.
                       </p>
 
                       <p>
-                        Epikurion Grove is a single-farm, seasonal reserve, composed of a carefully selected blend of olive varieties
-                        chosen for harmony rather than volume. Each variety contributes its own subtle character, creating an oil that is elegant,
-                        expressive, and quietly complex.
-                      </p>
+                       For generations, this golden oil remained a family secret, shared only at Greek family tables and within trusted circles. Today, in select seasons and limited quantities, it is offered beyond our borders — a gift from our family to yours.  </p>
 
                       <p>
-                        For generations, this golden oil remained a family secret, shared only within Greece at family tables and among trusted circles.
-                        Today, in limited seasons and limited quantities, it is offered beyond our borders — shared from our family to yours.
-                      </p>
-
-                      <p>
-                        Every bottle reflects its origin: ancient land, living tradition, and contemporary craftsmanship.
-                        From Thermopylae to the modern table, Epikurion Grove embodies authenticity, restraint, and enduring Greek excellence.
-                      </p>
+                       Each bottle reflects its heritage: the timeless land, a living tradition, and the art of contemporary craftsmanship. From Thermopylae to the modern table, Epikurion Grove embodies authenticity, elegance, and the enduring spirit of Greek excellence. </p>
                     </div>
                   </motion.div>
 

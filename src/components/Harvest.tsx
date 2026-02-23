@@ -176,7 +176,7 @@ const Harvest: React.FC = () => {
                     Immediate Cleaning & Crushing
                   </h2>
 
-                  <div className="mt-6 space-y-6 font-messiri text-white text-base sm:text-lg lg:text-xl leading-relaxed">
+                  <div className="mt-6 space-y-6 font-messiri text-white text-base sm:text-xl lg:text-2xl leading-relaxed">
                     <motion.p
                       variants={fadeUp}
                       initial="hidden"

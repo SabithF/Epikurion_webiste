@@ -281,7 +281,16 @@ const EpikurionPage: React.FC = () => {
                 <motion.img
                   src="/assets/logo/epi-logo-white.png"
                   alt="logo"
-                  className="w-[40%] max-lg:w-[70%] relative translate-y-16 translate-x-6 max-lg:translate-y-0 max-lg:translate-x-0 max-lg:mt-6"
+                  className="
+    w-[40%] 
+    max-lg:w-[50%] 
+    relative 
+    translate-y-16 translate-x-6 
+    max-lg:translate-y-0 
+    max-lg:translate-x-0 
+    max-lg:mt-6 
+    max-lg:mx-auto
+  "
                   variants={fadeIn}
                   initial="hidden"
                   whileInView="show"
@@ -311,7 +320,7 @@ const EpikurionPage: React.FC = () => {
               </motion.h1>
 
               <motion.div
-                className="w-[90%] text-left px-2 text-white text-base py-5  sm:text-sm lg:text-lg
+                className="w-[90%] text-left px-2 text-white text-base py-8 sm:text-[1.125rem] lg:text-[1.5rem]
                 leading-8 max-lg:w-full max-lg:leading-relaxed"
                 variants={fadeUp}
                 initial="hidden"

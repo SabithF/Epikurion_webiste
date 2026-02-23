@@ -2,8 +2,18 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Footer: React.FC = () => {
+
+  const handleScrollTop = () => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth", // change to "auto" if you prefer instant
+    });
+  };
+
   return (
     <footer className="bg-[#0c2000] text-white border-t border-white/10">
+      
       {/* Top */}
       <div className="px-8 sm:px-16 lg:px-32 py-16 grid grid-cols-1 lg:grid-cols-12 gap-12">
         
@@ -27,29 +37,30 @@ const Footer: React.FC = () => {
           <p className="uppercase tracking-[0.3em] text-xs text-[#d2ae6d] mb-6">
             Explore
           </p>
+
           <ul className="space-y-3 text-white/80">
             <li>
-              <Link to="/" className="hover:text-white transition">
+              <Link to="/" onClick={handleScrollTop} className="hover:text-white transition">
                 Home
               </Link>
             </li>
             <li>
-              <Link to="/origin" className="hover:text-white transition">
+              <Link to="/origin" onClick={handleScrollTop} className="hover:text-white transition">
                 Origin
               </Link>
             </li>
             <li>
-              <Link to="/harvest" className="hover:text-white transition">
+              <Link to="/harvest" onClick={handleScrollTop} className="hover:text-white transition">
                 Harvest
               </Link>
             </li>
             <li>
-              <Link to="/epikurion" className="hover:text-white transition">
+              <Link to="/epikurion" onClick={handleScrollTop} className="hover:text-white transition">
                 Epikurion Grove
               </Link>
             </li>
             <li>
-              <Link to="/contact" className="hover:text-white transition">
+              <Link to="/contact" onClick={handleScrollTop} className="hover:text-white transition">
                 Contact
               </Link>
             </li>
