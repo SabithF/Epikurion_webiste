@@ -258,7 +258,7 @@ const AboutPage: React.FC = () => {
                     viewport={{ once: true, amount: 0.25 }}
                   >
                     <div className="space-y-6 font-messiri text-white/95 
-                    text-[15px] sm:text-[1.25rem] lg:text-[1.25rem] leading-relaxed">
+                    text-lg sm:text-[1.5rem] lg:text-[1.5rem] leading-relaxed">
                       <p>
                      Harvest is a moment of patience and precision. Olives are gently collected throughout the season, with expert hands guiding each delicate step. Modern techniques blend seamlessly with tradition, ensuring the utmost care at every stage. From grove to press, only the finest fruit is selected, yielding a golden oil of unparalleled clarity and exquisite nuance.
                       </p>

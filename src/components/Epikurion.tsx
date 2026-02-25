@@ -378,7 +378,7 @@ const EpikurionPage: React.FC = () => {
       </section>
 
       {/* 750ml STRIP */}
-      <div className="relative py-4 max-lg:py-10 overflow-visible">
+      <div className="relative pt-4 max-lg:py-10 overflow-visible">
         {/* Gold strip */}
         <motion.div
           className="
@@ -444,12 +444,12 @@ const EpikurionPage: React.FC = () => {
       </div>
 
 
+     
       {/* ALL BOTTLES */}
-      {/* ALL BOTTLES */}
-      <section className="relative w-full flex flex-col items-center uppercase py-6">
+      <section className="relative w-full flex flex-col items-center uppercase pb-6">
 
 
-        <div className="pt-40 lg:pt-48 px-6 sm:px-12 lg:px-24 w-full flex Z-50 justify-center">
+        <div className="pt-5 lg:pt-36 px-6 sm:px-12 lg:px-24 w-full flex Z-50 justify-center">
           <motion.img
             src="/assets/img/epik/all-bottles-darl.png"
             alt="all bottles"
