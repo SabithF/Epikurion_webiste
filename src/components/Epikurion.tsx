@@ -424,7 +424,7 @@ const EpikurionPage: React.FC = () => {
         </motion.div>
 
         {/* Lemon image */}
-        <motion.img
+        {/* <motion.img
           src="/assets/img/epik/Lemon-1.png"
           alt="LEMON"
           className="
@@ -439,12 +439,12 @@ const EpikurionPage: React.FC = () => {
           whileInView="show"
           viewport={{ once: true, amount: 0.35 }}
           draggable={false}
-        />
+        /> */}
 
       </div>
 
 
-     
+
       {/* ALL BOTTLES */}
       <section className="relative w-full flex flex-col items-center uppercase pb-6">
 
@@ -503,7 +503,8 @@ const EpikurionPage: React.FC = () => {
       </section>
 
       {/* WHY CHOOSE */}
-      <section className="uppercase px-6 sm:px-12 lg:px-16 pt-14 lg:pt-16 text-base sm:text-xl lg:text-2xl flex flex-col">
+      <section className="relative min-h-screen bg-white z-10 uppercase px-6 sm:px-12 
+      lg:px-16 pt-14 lg:pt-16 ">
         <motion.h1
           className="text-yellowPrimary text-base sm:text-xl lg:text-3xl pb-2"
           variants={fadeUp}
@@ -515,7 +516,7 @@ const EpikurionPage: React.FC = () => {
         </motion.h1>
 
         <motion.div
-          className="text-black tracking-wider max-w-4xl"
+          className="text-black tracking-wider max-w-4xl lg:max-w-[60%]"
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
@@ -528,10 +529,63 @@ const EpikurionPage: React.FC = () => {
             <li>- International quality verification</li>
           </ul>
         </motion.div>
+
+        <motion.img
+          src="/assets/img/epik/1litre.png"
+          alt="One liter bottle"
+          draggable={false}
+          className="
+              pointer-events-none select-none
+               
+              w-[60%] sm:w-[40%] md:w-[32%]
+
+              lg:absolute
+              lg:top-[15%]
+
+              lg:right-28
+              
+
+              lg:-translate-x-1/2
+              lg:-translate-y-80
+
+              lg:w-[24rem]
+              lg:rotate-[60deg]
+              lg:origin-top-center
+
+              xl:w-[26rem]
+              2xl:w-[28rem]
+  "
+        />
       </section>
 
+      <Footer />
+      {/* <section className="relative min-h-screen overflow-visible flex items-center justify-center">
+        <motion.img
+          src="/assets/img/epik/1litre.png"
+          alt="One liter bottle"
+          className="
+      pointer-events-none select-none
+      relative mx-auto mt-10
+      w-[70%] sm:w-[45%] md:w-[40%]
 
-      <section className="relative min-h-screen overflow-visible">
+      lg:absolute
+      lg:w-[28%]
+      lg:top-[5%]
+      lg:left-[50%]
+
+      lg:-translate-x-[20%]
+      lg:-translate-y-[30%]
+
+      lg:rotate-[45deg]
+      lg:origin-bottom-left
+
+      2xl:w-[24%]
+    "
+        />
+      </section> */}
+
+
+      {/* <section className="relative min-h-screen overflow-visible">
         <motion.img
           src="/assets/img/epik/1litre.png"
           alt="One liter bottle"
@@ -551,9 +605,9 @@ const EpikurionPage: React.FC = () => {
       [@media(min-width:1027px)_and_(max-width:1375px)]:w-[30%]
     "
         />
-      </section>
+      </section> */}
 
-      <Footer />
+      {/* <Footer /> */}
 
       {navActive && (
         <div className="fixed inset-0 z-[80]" onClick={() => setNavActive(false)}>

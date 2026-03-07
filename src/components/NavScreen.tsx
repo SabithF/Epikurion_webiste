@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 
 type MenuTile = {
   label: React.ReactNode;
-  path?: string; // if missing => non-click tile
+  path?: string; 
   bg: string;
-  previewSrc: string; // banner shown on hover inside tile
-  overlayClass?: string; // optional overlay strength
+  previewSrc: string; 
+  overlayClass?: string; 
 };
 
 const MENU_TILES: { top: MenuTile[]; middle: MenuTile[]; bottom: MenuTile[] } = {
@@ -57,7 +57,6 @@ const MenuTileBlock: React.FC<{ tile: MenuTile; onClick?: () => void }> = ({ til
         if (e.key === "Enter" || e.key === " ") onClick?.();
       }}
     >
-      {/* banner preview inside the tile */}
       <img
         src={tile.previewSrc}
         alt=""
@@ -65,7 +64,6 @@ const MenuTileBlock: React.FC<{ tile: MenuTile; onClick?: () => void }> = ({ til
         className="absolute inset-0 h-full w-full object-cover opacity-0 scale-110 group-hover:opacity-100 group-hover:scale-100 transition-all duration-700"
       />
 
-      {/* overlay */}
       <div
         className={[
           "absolute inset-0",
@@ -74,14 +72,13 @@ const MenuTileBlock: React.FC<{ tile: MenuTile; onClick?: () => void }> = ({ til
         ].join(" ")}
       />
 
-      {/* label */}
       <div className="relative z-10 px-4 text-center">{tile.label}</div>
     </div>
   );
 };
 
 type NavScreenProps = {
-  onClose: () => void; // ✅ make it required so it always works
+  onClose: () => void;
 };
 
 const NavScreen: React.FC<NavScreenProps> = ({ onClose }) => {
@@ -89,41 +86,58 @@ const NavScreen: React.FC<NavScreenProps> = ({ onClose }) => {
 
   const go = (path?: string) => {
     if (!path) return;
-    onClose(); // ✅ always close
+
+    onClose();
     navigate(path);
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: "auto",
+        });
+      });
+    });
   };
 
   return (
-    
     <section
       className="fixed inset-0 z-[70] w-screen h-screen bg-black text-white"
       onClick={onClose}
     >
-      {/* ✅ stop clicks INSIDE menu from closing */}
       <div className="flex flex-col h-full" onClick={(e) => e.stopPropagation()}>
-        {/* Top row */}
         <div className="flex flex-1">
           {MENU_TILES.top.map((tile, idx) => (
-            <MenuTileBlock key={idx} tile={tile} onClick={tile.path ? () => go(tile.path) : undefined} />
+            <MenuTileBlock
+              key={idx}
+              tile={tile}
+              onClick={tile.path ? () => go(tile.path) : undefined}
+            />
           ))}
         </div>
 
-        {/* Middle row */}
         <div className="flex flex-1">
           {MENU_TILES.middle.map((tile, idx) => (
-            <MenuTileBlock key={idx} tile={tile} onClick={tile.path ? () => go(tile.path) : undefined} />
+            <MenuTileBlock
+              key={idx}
+              tile={tile}
+              onClick={tile.path ? () => go(tile.path) : undefined}
+            />
           ))}
         </div>
 
-        {/* Bottom row */}
         <div className="flex flex-1">
           {MENU_TILES.bottom.map((tile, idx) => (
-            <MenuTileBlock key={idx} tile={tile} onClick={tile.path ? () => go(tile.path) : undefined} />
+            <MenuTileBlock
+              key={idx}
+              tile={tile}
+              onClick={tile.path ? () => go(tile.path) : undefined}
+            />
           ))}
         </div>
       </div>
 
-      {/* ✅ Bigger, highlighted close button (easy to tap) */}
       <button
         type="button"
         onClick={(e) => {

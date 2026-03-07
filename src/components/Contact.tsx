@@ -23,6 +23,7 @@ const ContactPage: React.FC = () => {
   // Web3Forms states
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   useEffect(() => {
     if (!navActive) return;
@@ -33,58 +34,67 @@ const ContactPage: React.FC = () => {
     };
   }, [navActive]);
 
+  useEffect(() => {
+    if (!showSuccess) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [showSuccess]);
+
   const toggleMenu = (e?: React.SyntheticEvent) => {
     e?.stopPropagation();
     setNavActive((v) => !v);
   };
 
-const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
-  setLoading(true);
-  setResult("Sending...");
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setLoading(true);
+    setResult("");
 
-  const form = event.currentTarget;
-  const formData = new FormData(form);
+    const form = event.currentTarget;
+    const formData = new FormData(form);
 
-  formData.append("access_key", "15dd4d2a-7e7d-42d2-88c7-9e20ee3b8fc6");
+    formData.append("access_key", "15dd4d2a-7e7d-42d2-88c7-9e20ee3b8fc6");
 
-  const subject = formData.get("subject");
-  if (!subject || String(subject).trim() === "") {
-    formData.set("subject", "Epikurion Contact Form");
-  }
-
-  try {
-    const res = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      body: formData,
-      headers: { Accept: "application/json" },
-    });
-
-    const data = await res.json();
-
-    if (res.ok && (data?.success === true || data?.status === "success")) {
-      form.reset();                         
-      setResult("✅ Thanks! Your message has been sent successfully. We’ll get back to you shortly.");        
-
-      // auto hide after 4 seconds
-      setTimeout(() => setResult(""), 4000);
-      return;
+    const subject = formData.get("subject");
+    if (!subject || String(subject).trim() === "") {
+      formData.set("subject", "Epikurion Contact Form");
     }
 
-    setResult(data?.message || "Something went wrong.");
-  } catch {
-    setResult("Submission failed. Please try again.");
-  } finally {
-    setLoading(false);
-  }
-};
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+        headers: { Accept: "application/json" },
+      });
 
+      const data = await res.json();
+
+      if (res.ok && (data?.success === true || data?.status === "success")) {
+        form.reset();
+        setShowSuccess(true);
+
+        setTimeout(() => {
+          setShowSuccess(false);
+        }, 4000);
+
+        return;
+      }
+
+      setResult(data?.message || "Something went wrong.");
+    } catch {
+      setResult("Submission failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <main className="min-h-screen font-messiri bg-[#0c2000] text-white overflow-hidden">
       {/* Top */}
       <header className="relative z-20 px-8 sm:px-16 lg:px-32 pt-10">
-        {/* ✅ Fixed top bar */}
         <div className="fixed top-0 left-0 right-0 z-[60]">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between pt-6">
@@ -128,7 +138,6 @@ const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
           </div>
         </div>
 
-        {/* ✅ spacer so content doesn't go under fixed bar */}
         <div className="h-20" />
       </header>
 
@@ -226,7 +235,6 @@ const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
               </p>
 
               <form className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-5" onSubmit={onSubmit}>
-                {/* Honeypot (spam protection) */}
                 <input type="checkbox" name="botcheck" className="hidden" tabIndex={-1} />
 
                 <label className="flex flex-col gap-2">
@@ -283,10 +291,9 @@ const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
                   </button>
                 </div>
 
-                {/* Result message */}
                 {result && (
                   <div className="sm:col-span-2">
-                    <p className="text-sm text-[#314036]/80">{result}</p>
+                    <p className="text-sm text-red-700 font-medium">{result}</p>
                   </div>
                 )}
               </form>
@@ -302,9 +309,46 @@ const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         </div>
       </section>
 
+      {/* Success Popup */}
+      {showSuccess && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.92, y: 12 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.45, ease }}
+            className="relative w-full max-w-md rounded-3xl bg-[#f5e7c8] text-[#314036] shadow-2xl overflow-hidden"
+          >
+            <div className="absolute inset-x-0 top-0 h-1 bg-[#314036]" />
+
+            <div className="p-8 sm:p-10 text-center">
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#314036] text-[#d2ae6d] text-3xl shadow-lg">
+                ✓
+              </div>
+
+              <h3 className="mt-6 text-3xl sm:text-4xl font-dancing">
+                Thank You
+              </h3>
+
+              <p className="mt-4 text-base sm:text-lg leading-relaxed text-[#314036]/80">
+                Your message has been sent successfully.
+                <br />
+                We’ll get back to you shortly.
+              </p>
+
+              <button
+                type="button"
+                onClick={() => setShowSuccess(false)}
+                className="mt-8 inline-flex h-11 items-center justify-center rounded-xl bg-[#314036] px-6 text-sm uppercase tracking-[0.2em] text-[#d2ae6d] hover:opacity-90 transition"
+              >
+                Close
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      )}
+
       <Footer />
 
-      {/* ✅ Menu overlay */}
       {navActive && <NavScreen onClose={() => setNavActive(false)} />}
     </main>
   );
