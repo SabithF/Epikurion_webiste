@@ -273,101 +273,114 @@ const EpikurionPage: React.FC = () => {
 
 
       {/* GREEN SECTION */}
-      <section className="bg-[#0c2000] px-8 sm:px-16 lg:px-32 text-white">
-        <div className="flex justify-between z-20 max-lg:flex-col max-lg:gap-10">
-          <div className="w-[80%] max-lg:w-full">
-            <div>
-              <div className="relative flex flex-row w-full gap-10 max-lg:flex-col max-lg:gap-4 max-lg:items-start">
-                <motion.img
-                  src="/assets/logo/epi-logo-white.png"
-                  alt="logo"
-                  className="
-    w-[40%] 
-    max-lg:w-[50%] 
-    relative 
-    translate-y-16 translate-x-6 
-    max-lg:translate-y-0 
-    max-lg:translate-x-0 
-    max-lg:mt-6 
-    max-lg:mx-auto
-  "
-                  variants={fadeIn}
-                  initial="hidden"
-                  whileInView="show"
-                  viewport={{ once: true, amount: 0.35 }}
-                  draggable={false}
-                />
-                <motion.div
-                  className="bg-red-800 flex text-3xl items-end italic px-1 max-lg:w-fit max-lg:mt-4 max-lg:ml-2"
-                  variants={fadeUp}
-                  initial="hidden"
-                  whileInView="show"
-                  viewport={{ once: true, amount: 0.6 }}
-                >
-                  Coming <br /> soon
-                </motion.div>
-              </div>
+      {/* GREEN SECTION */}
+      <section className="bg-[#0c2000] px-6 sm:px-10 lg:px-20 xl:px-28 py-16 lg:py-0 text-white overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-6 items-center">
+          {/* LEFT CONTENT */}
+          <div className="lg:col-span-7 xl:col-span-7">
+            {/* logo + badge */}
+            <div className="flex flex-col sm:flex-row sm:items-start gap-5 sm:gap-8">
+              <motion.img
+                src="/assets/logo/epi-logo-white.png"
+                alt="Epikurion Grove"
+                className="w-[220px] sm:w-[260px] lg:w-[320px] h-auto"
+                variants={fadeIn}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, amount: 0.35 }}
+                draggable={false}
+              />
 
-              <motion.h1
-                className="text-8xl font-dancing -translate-y-28 text-yellowPrimary 
-                max-lg:text-7xl lg:translate-y-44 max-lg:mt-0"
+              <motion.div
+                className="bg-[#9f1d1d] text-white italic leading-none pr-32 md:px-4 py-4 md:pt-32 self-start text-2xl sm:text-3xl"
                 variants={fadeUp}
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true, amount: 0.6 }}
               >
-                Signature
-              </motion.h1>
+                Coming
+                <br />
+                soon
+              </motion.div>
+            </div>
+
+            {/* title */}
+            <motion.h1
+              className="text-[4rem] sm:text-[5rem] 
+              lg:text-[6.5rem] leading-[0.9] font-dancing text-[#d2ae6d]"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.6 }}
+            >
+              Signature
+            </motion.h1>
+
+            {/* paragraphs */}
+            <motion.div
+              className="mt-6 max-w-3xl text-white text-lg sm:text-[1.35rem] lg:text-[1.65rem] leading-relaxed space-y-8"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.45 }}
+            >
+              <p>
+                Epikurion Grove Signature is an expression that unites fresh
+                Mediterranean citrus with gentle garlic warmth, layered over our
+                single-estate extra virgin olive oil. Bright and aromatic in
+                character, it opens with notes of lemon zest, followed by a smooth
+                olive-fruit core and a soft, savoury finish.
+              </p>
+
+              <p>
+                Balanced and versatile, Mediterranean Citrus &amp; Garlic is best
+                enjoyed drizzled over salads or refined cuisine, where its vibrant
+                character comes to life—bringing clarity and depth to both simple
+                preparations and carefully composed dishes. An elegant expression of
+                flavour shaped by origin, craft, and restraint.
+              </p>
+            </motion.div>
+
+            {/* bottom row */}
+            <div className="mt-10 flex flex-col md:flex-row md:items-end md:justify-between pb-10 gap-8">
+              <motion.img
+                src="/assets/img/epik/Lemon and Garlic.png"
+                alt="Lemon and garlic"
+                className="w-[220px] sm:w-[280px] lg:w-[320px] h-auto"
+                variants={slideInLeft}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, amount: 0.35 }}
+                draggable={false}
+              />
 
               <motion.div
-                className="w-[90%] text-left px-2 text-white text-base py-8 sm:text-[1.125rem] lg:text-[1.5rem]
-                leading-8 max-lg:w-full max-lg:leading-relaxed"
+                className="text-[#d2ae6d] md:text-right"
                 variants={fadeUp}
                 initial="hidden"
                 whileInView="show"
-                viewport={{ once: true, amount: 0.45 }}
+                viewport={{ once: true, amount: 0.35 }}
               >
-                <p className="leading-relaxed">
-                  Epikurion Grove Signature is an expression that unites fresh
-                  Mediterranean citrus with gentle garlic warmth, layered over our
-                  single-estate extra virgin olive oil. Bright and aromatic in character,
-                  it opens with notes of lemon zest, followed by a smooth olive-fruit core and a soft, savoury finish.
+                <h2 className="font-dancing text-6xl sm:text-7xl lg:text-8xl leading-none">
+                  750ml
+                </h2>
+                <p className="mt-2 text-2xl sm:text-3xl leading-snug">
+                  Extra Virgin Olive Oil
                 </p>
-                <br />
-                <p className="leading-relaxed">
-                  Balanced and versatile, Mediterranean Citrus & Garlic is best enjoyed drizzled over salads
-                  or refined cuisine, where its vibrant character comes to life—bringing clarity and depth
-                  to both simple preparations and carefully composed dishes. An elegant expression of flavour
-                  shaped by origin, craft, and restraint.
+                <p className="text-2xl sm:text-3xl leading-snug">
+                  Infused with Lemon and Garlic
                 </p>
               </motion.div>
             </div>
           </div>
 
-          {/* Bottles */}
-          <div className="relative max-lg:flex max-lg:justify-center max-lg:flex-col max-lg:items-center">
+          {/* RIGHT BOTTLE */}
+          <div className="lg:col-span-5 xl:col-span-5 flex justify-center lg:justify-end">
             <motion.img
               src="/assets/img/epik/Epikurion Grove Bottle GiftB.png"
-              alt="epikurion gift bottle"
-              className="w-[30%] lg:w-[40%] -translate-y-80 
-              translate-x-32 z-20 abstract  max-lg:translate-x-0 max-lg:translate-y-0 max-lg:mx-auto"
+              alt="Epikurion Grove Signature bottle"
+              className="w-[260px] sm:w-[220px] md:w-[200px] lg:w-[200px] xl:w-[300px] h-auto"
               variants={slideInRight}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, amount: 0.35 }}
-              draggable={false}
-            />
-
-            <motion.img
-              src="/assets/img/epik/Lemon and Garlic.png"
-              alt="lemon"
-              className="
-                absolute
-                -translate-y-[22rem] translate-x-24
-                z-50 w-[44%] -bottom-44 -right-2
-                max-lg:static lg:w-[62%] max-lg:mx-auto max-lg:mt-6 max-lg:translate-x-0 max-lg:translate-y-0
-              "
-              variants={slideInLeft}
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, amount: 0.35 }}
@@ -377,71 +390,7 @@ const EpikurionPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 750ml STRIP */}
-      <div className="relative pt-4 max-lg:py-10 overflow-visible">
-        {/* Gold strip */}
-        <motion.div
-          className="
-      relative z-10
-      flex w-[70%] flex-col justify-center items-end gap-4
-      bg-[#d2ae6d] py-6 pr-52 rounded-r-3xl
-      max-lg:w-full max-lg:items-start max-lg:px-6 max-lg:pr-6
-    "
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.6 }}
-        >
-          <h1
-            className="
-        font-dancing text-8xl text-[#494949]
-        translate-x-44 md:translate-x-0
-        max-lg:translate-x-0 max-lg:text-5xl
-      "
-          >
-            750ml
-          </h1>
 
-          <p
-            className="
-        text-3xl text-[#494949]
-        translate-x-20 md:translate-x-0
-        max-lg:translate-x-0 max-lg:text-xl
-      "
-          >
-            Extra Virgin Olive Oil
-          </p>
-
-          <p
-            className="
-        text-3xl text-[#494949]
-        translate-x-10 md:translate-x-0
-        max-lg:translate-x-0 max-lg:text-xl
-      "
-          >
-            Infused with Lemon and Garlic
-          </p>
-        </motion.div>
-
-        {/* Lemon image */}
-        {/* <motion.img
-          src="/assets/img/epik/Lemon-1.png"
-          alt="LEMON"
-          className="
-          absolute z-50 select-none pointer-events-none
-          right-4 sm:right-8 lg:left-2
-          top-1/2 -translate-y-1/2
-          w-[120px] sm:w-[160px] md:w-[200px] lg:w-[200px]
-          lg:translate-y-6
-  "
-          variants={slideInRight}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.35 }}
-          draggable={false}
-        /> */}
-
-      </div>
 
 
 
@@ -451,7 +400,7 @@ const EpikurionPage: React.FC = () => {
 
         <div className="pt-5 lg:pt-36 px-6 sm:px-12 lg:px-24 w-full flex Z-50 justify-center">
           <motion.img
-            src="/assets/img/epik/all-bottles-darl.png"
+            src="/assets/img/epik/all-bottles-new.png"
             alt="all bottles"
             variants={fadeIn}
             initial="hidden"
