@@ -116,7 +116,8 @@ const EpikurionPage: React.FC = () => {
         </div>
 
         {/* Text */}
-        <div className="flex items-center w-[40%] px-10 text-6xl max-lg:w-full max-lg:px-6 max-lg:py-10 max-lg:text-4xl max-lg:leading-tight">
+        <div className="flex items-center w-[40%] px-10 text-6xl max-lg:w-full 
+        max-lg:px-6 max-lg:py-10 max-lg:text-4xl max-lg:leading-tight">
           <motion.h1
             className="text-gray-700"
             variants={fadeUp}
@@ -150,7 +151,19 @@ const EpikurionPage: React.FC = () => {
 
         {/* LIMITED title */}
         <motion.h1
-          className="flex justify-center py-16 text-7xl tracking-[1.4em] text-white max-lg:text-4xl max-lg:tracking-[0.6em] max-lg:py-10"
+          className="
+    flex justify-center
+    text-center
+    py-16
+    text-7xl
+    tracking-[1.4em]
+    -mr-[1.4em]
+    text-white
+    max-lg:text-4xl
+    max-lg:tracking-[0.6em]
+    max-lg:-mr-[0.6em]
+    max-lg:py-10
+  "
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
@@ -158,7 +171,6 @@ const EpikurionPage: React.FC = () => {
         >
           LIMITED
         </motion.h1>
-
         {/* Content */}
         <div
           className="
@@ -427,7 +439,7 @@ const EpikurionPage: React.FC = () => {
       </section>
 
       {/* CERT */}
-      <section className="bg-[#3e591e] uppercase px-6 sm:px-12 lg:px-16 py-14 lg:py-20 text-base sm:text-xl lg:text-2xl">
+      <section className="bg-[#3e591e]  uppercase px-6 sm:px-24 lg:px-24 py-14 lg:py-20 text-base sm:text-xl lg:text-2xl">
         <motion.h1
           className="text-yellowPrimary text-base sm:text-xl lg:text-3xl pb-2 tracking-wider"
           variants={fadeUp}
@@ -445,14 +457,12 @@ const EpikurionPage: React.FC = () => {
           whileInView="show"
           viewport={{ once: true, amount: 0.6 }}
         >
-          Each harvest is evaluated through internal quality checks and verified by
-          independent laboratory analysis to confirm compliance with extra virgin olive
-          oil standards.
+          From our single estate to your table, every harvest is independently verified and lab-tested, guaranteeing certified Extra Virgin quality and a truly exceptional olive oil experience.
         </motion.p>
       </section>
 
       {/* WHY CHOOSE */}
-      <section className="relative min-h-screen bg-white z-10 uppercase px-6 sm:px-12 
+      <section className="relative min-h-screen bg-white z-10 uppercase px-6 sm:px-24 
       lg:px-16 pt-14 lg:pt-16 ">
         <motion.h1
           className="text-yellowPrimary text-base sm:text-xl lg:text-3xl pb-2"
@@ -472,10 +482,11 @@ const EpikurionPage: React.FC = () => {
           viewport={{ once: true, amount: 0.6 }}
         >
           <ul className="space-y-2 list-inside">
-            <li>- 100% single-farm, farm-to-bottle traceability</li>
-            <li>- Produced using sustainable farming methods</li>
-            <li>- Slow extraction for maximum nutrients</li>
-            <li>- International quality verification</li>
+            <li>- 100% single‑farm, farm-to-bottle traceability</li>
+            <li>- Certified Extra Virgin Olive Oil</li>
+            <li>- Slow extraction preserves nutrients and antioxidants</li>
+            <li>- Pure, authentic Mediterranean taste</li>
+            <li>- Minimal filtration for natural character</li>
           </ul>
         </motion.div>
 
@@ -495,14 +506,19 @@ const EpikurionPage: React.FC = () => {
               
 
               lg:-translate-x-1/2
-              lg:-translate-y-80
+              lg:-translate-y-[10rem]
+               xl:-translate-y-[26rem]  
 
               lg:w-[24rem]
               lg:rotate-[60deg]
               lg:origin-top-center
+            [@media(min-width:1500px)_and_(min-height:700px)]:w-[28rem]
+            [@media(min-width:1500px)_and_(min-height:650px)]:w-[30rem]
+            [@media(min-width:1536px)_and_(min-height:800px)]:w-[32rem]
 
-              xl:w-[26rem]
-              2xl:w-[28rem]
+
+
+             
   "
         />
       </section>

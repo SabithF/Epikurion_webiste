@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AnimatePresence, motion, type Variants } from "framer-motion";
+import { AnimatePresence} from "framer-motion";
+import NavScreen from "./NavScreen";
 
 type ClickMode = "route" | "next" | "none";
 
@@ -121,107 +122,107 @@ const bannerDetails: Banner[] = [
 ];
 
 // ---------- Menu Tiles ----------
-type MenuTile = {
-  label: React.ReactNode;
-  path?: string;
-  bg: string;
-  previewSrc: string;
-  overlayClass?: string;
-};
+// type MenuTile = {
+//   label: React.ReactNode;
+//   path?: string;
+//   bg: string;
+//   previewSrc: string;
+//   overlayClass?: string;
+// };
 
-const MENU_TILES: {
-  top: MenuTile[];
-  middle: MenuTile[];
-  bottom: MenuTile[];
-} = {
-  top: [
-    { label: "Home", path: "/", bg: "bg-[#4a2c2c]", previewSrc: "/assets/banners/main-banner.png" },
-    { label: "Origin", path: "/origin", bg: "bg-[#9b2d5d]", previewSrc: "/assets/banners/banner-2.png" },
-    { label: "Harvest", path: "/harvest", bg: "bg-[#1f6f84]", previewSrc: "/assets/banners/banner-3.png" },
-  ],
-  middle: [
-    {
-      label: (
-        <div className="text-center">
-          <p className="tracking-[0.4em] text-2xl max-sm:text-xl">Epikurion Grove</p>
-          <p className="text-xs mt-2 opacity-70">SINCE 1929</p>
-        </div>
-      ),
-      path: "/epikurion",
-      bg: "bg-[#5a3a35]",
-      previewSrc: "/assets/banners/main-banner.png",
-      overlayClass: "bg-black/55",
-    },
-  ],
-  bottom: [
-    { label: "Contact", path: "/contact", bg: "bg-[#4a2c2c]", previewSrc: "/assets/banners/banner-5.png" },
-    { label: "Gallery", bg: "bg-[#9b2d5d]", previewSrc: "/assets/banners/banner-41.png" },
-    { label: "More", bg: "bg-[#1f6f84]", previewSrc: "/assets/banners/banner-5.png" },
-  ],
-};
+// const MENU_TILES: {
+//   top: MenuTile[];
+//   middle: MenuTile[];
+//   bottom: MenuTile[];
+// } = {
+//   top: [
+//     { label: "Home", path: "/", bg: "bg-[#4a2c2c]", previewSrc: "/assets/banners/main-banner.png" },
+//     { label: "Origin", path: "/origin", bg: "bg-[#9b2d5d]", previewSrc: "/assets/banners/banner-2.png" },
+//     { label: "Harvest", path: "/harvest", bg: "bg-[#1f6f84]", previewSrc: "/assets/banners/banner-3.png" },
+//   ],
+//   middle: [
+//     {
+//       label: (
+//         <div className="text-center">
+//           <p className="tracking-[0.4em] text-2xl max-sm:text-xl">Epikurion Grove</p>
+//           <p className="text-xs mt-2 opacity-70">SINCE 1929</p>
+//         </div>
+//       ),
+//       path: "/epikurion",
+//       bg: "bg-[#5a3a35]",
+//       previewSrc: "/assets/banners/main-banner.png",
+//       overlayClass: "bg-black/55",
+//     },
+//   ],
+//   bottom: [
+//     { label: "Contact", path: "/contact", bg: "bg-[#4a2c2c]", previewSrc: "/assets/banners/banner-5.png" },
+//     { label: "Gallery", bg: "bg-[#9b2d5d]", previewSrc: "/assets/banners/banner-41.png" },
+//     { label: "More", bg: "bg-[#1f6f84]", previewSrc: "/assets/banners/banner-5.png" },
+//   ],
+// };
 
-const MenuTileBlock: React.FC<{ tile: MenuTile; onClick?: () => void }> = ({
-  tile,
-  onClick,
-}) => {
-  const clickable = Boolean(onClick);
-  return (
-    <div
-      onClick={onClick}
-      className={[
-        "group relative flex-1 flex items-center justify-center",
-        tile.bg,
-        "text-white tracking-widest",
-        "overflow-hidden",
-        clickable ? "cursor-pointer" : "cursor-default",
-        "hover:bg-white/20 transition-all",
-        "min-h-[33vh] sm:min-h-0",
-      ].join(" ")}
-      role={clickable ? "button" : undefined}
-      tabIndex={clickable ? 0 : -1}
-      onKeyDown={(e) => {
-        if (!clickable) return;
-        if (e.key === "Enter" || e.key === " ") onClick?.();
-      }}
-    >
-      <img
-        src={tile.previewSrc}
-        alt=""
-        draggable={false}
-        loading="lazy"
-        decoding="async"
-        className={[
-          "absolute inset-0 h-full w-full object-cover",
-          "opacity-0 scale-110",
-          "group-hover:opacity-100 group-hover:scale-100",
-          "transition-all duration-700",
-        ].join(" ")}
-      />
+// const MenuTileBlock: React.FC<{ tile: MenuTile; onClick?: () => void }> = ({
+//   tile,
+//   onClick,
+// }) => {
+//   const clickable = Boolean(onClick);
+//   return (
+//     <div
+//       onClick={onClick}
+//       className={[
+//         "group relative flex-1 flex items-center justify-center",
+//         tile.bg,
+//         "text-white tracking-widest",
+//         "overflow-hidden",
+//         clickable ? "cursor-pointer" : "cursor-default",
+//         "hover:bg-white/20 transition-all",
+//         "min-h-[33vh] sm:min-h-0",
+//       ].join(" ")}
+//       role={clickable ? "button" : undefined}
+//       tabIndex={clickable ? 0 : -1}
+//       onKeyDown={(e) => {
+//         if (!clickable) return;
+//         if (e.key === "Enter" || e.key === " ") onClick?.();
+//       }}
+//     >
+//       <img
+//         src={tile.previewSrc}
+//         alt=""
+//         draggable={false}
+//         loading="lazy"
+//         decoding="async"
+//         className={[
+//           "absolute inset-0 h-full w-full object-cover",
+//           "opacity-0 scale-110",
+//           "group-hover:opacity-100 group-hover:scale-100",
+//           "transition-all duration-700",
+//         ].join(" ")}
+//       />
 
-      <div
-        className={[
-          "absolute inset-0",
-          tile.overlayClass ?? "bg-black/45",
-          "opacity-0 group-hover:opacity-100",
-          "transition-opacity duration-300",
-        ].join(" ")}
-      />
+//       <div
+//         className={[
+//           "absolute inset-0",
+//           tile.overlayClass ?? "bg-black/45",
+//           "opacity-0 group-hover:opacity-100",
+//           "transition-opacity duration-300",
+//         ].join(" ")}
+//       />
 
-      <div className="relative z-10 px-4 text-center text-sm sm:text-base">
-        {tile.label}
-      </div>
-    </div>
-  );
-};
+//       <div className="relative z-10 px-4 text-center text-sm sm:text-base">
+//         {tile.label}
+//       </div>
+//     </div>
+//   );
+// };
 
-/** ✅ Menu animation */
-const easeOut = [0.16, 1, 0.3, 1] as const;
+// /** ✅ Menu animation */
+// const easeOut = [0.16, 1, 0.3, 1] as const;
 
-const menuVariants: Variants = {
-  hidden: { y: "-100%", opacity: 0 },
-  show: { y: 0, opacity: 1, transition: { duration: 0.45, ease: easeOut } },
-  exit: { y: "-100%", opacity: 0, transition: { duration: 0.3, ease: easeOut } },
-};
+// const menuVariants: Variants = {
+//   hidden: { y: "-100%", opacity: 0 },
+//   show: { y: 0, opacity: 1, transition: { duration: 0.45, ease: easeOut } },
+//   exit: { y: "-100%", opacity: 0, transition: { duration: 0.3, ease: easeOut } },
+// };
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -361,16 +362,25 @@ const Home: React.FC = () => {
     e?.stopPropagation();
     setNavActive((v) => !v);
   };
+  // const go = (path: string) => {
+  //   setNavActive(false);
+  //   navigate(path);
+  // };
 
-  const go = (path: string) => {
-    setNavActive(false);
-    navigate(path);
-  };
+  useEffect(() => {
+    if (!navActive) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [navActive]);
 
   return (
     <section
       className={`relative h-screen w-screen overflow-hidden ${cursorClass}`}
-      onClick={navActive ? undefined : onBannerClick} // ✅ stop banner click when menu open
+      onClick={navActive ? undefined : onBannerClick}
       onWheel={navActive ? undefined : onWheel}
       onTouchStart={navActive ? undefined : onTouchStart}
       onTouchMove={navActive ? undefined : onTouchMove}
@@ -423,19 +433,16 @@ const Home: React.FC = () => {
             <span className="absolute inset-0 rounded-md ring-white/20 group-hover:ring-white/30 transition-all" />
             <span className="relative flex flex-col gap-[5px]">
               <span
-                className={`h-[2px] w-5 bg-white transition-all ${
-                  navActive ? "translate-y-[7px] rotate-45" : ""
-                }`}
+                className={`h-[2px] w-5 bg-white transition-all ${navActive ? "translate-y-[7px] rotate-45" : ""
+                  }`}
               />
               <span
-                className={`h-[2px] w-5 bg-white transition-all ${
-                  navActive ? "opacity-0" : "opacity-100"
-                }`}
+                className={`h-[2px] w-5 bg-white transition-all ${navActive ? "opacity-0" : "opacity-100"
+                  }`}
               />
               <span
-                className={`h-[2px] w-5 bg-white transition-all ${
-                  navActive ? "-translate-y-[7px] -rotate-45" : ""
-                }`}
+                className={`h-[2px] w-5 bg-white transition-all ${navActive ? "-translate-y-[7px] -rotate-45" : ""
+                  }`}
               />
             </span>
           </button>
@@ -445,44 +452,14 @@ const Home: React.FC = () => {
       {/* ✅ Animated full-screen menu */}
       <AnimatePresence>
         {navActive && (
-          <motion.section
-            variants={menuVariants}
-            initial="hidden"
-            animate="show"
-            exit="exit"
-            className="fixed inset-0 w-screen h-screen flex flex-col bg-black z-[999] text-white"
-            onClick={(e) => e.stopPropagation()}
+          <div
+            className="fixed inset-0 z-[80]"
+            onClick={() => setNavActive(false)}
           >
-            <div className="flex flex-1 flex-col sm:flex-row">
-              {MENU_TILES.top.map((tile, idx) => (
-                <MenuTileBlock
-                  key={idx}
-                  tile={tile}
-                  onClick={tile.path ? () => go(tile.path!) : undefined}
-                />
-              ))}
+            <div onClick={(e) => e.stopPropagation()}>
+              <NavScreen onClose={() => setNavActive(false)} />
             </div>
-
-            <div className="flex flex-1">
-              {MENU_TILES.middle.map((tile, idx) => (
-                <MenuTileBlock
-                  key={idx}
-                  tile={tile}
-                  onClick={tile.path ? () => go(tile.path!) : undefined}
-                />
-              ))}
-            </div>
-
-            <div className="flex flex-1 flex-col sm:flex-row">
-              {MENU_TILES.bottom.map((tile, idx) => (
-                <MenuTileBlock
-                  key={idx}
-                  tile={tile}
-                  onClick={tile.path ? () => go(tile.path!) : undefined}
-                />
-              ))}
-            </div>
-          </motion.section>
+          </div>
         )}
       </AnimatePresence>
 
@@ -505,7 +482,7 @@ const Home: React.FC = () => {
             className={[
               "absolute",
               current.textPosClass ??
-                "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
+              "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
               "px-6 text-center",
               "max-lg:w-[92%] max-lg:left-1/2 max-lg:-translate-x-1/2",
             ].join(" ")}
