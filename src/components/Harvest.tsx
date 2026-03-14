@@ -198,7 +198,7 @@ const Harvest: React.FC = () => {
                   <motion.img
                     src="/assets/img/harvest/olive-bunch.png"
                     alt="Olive"
-                    className="w-44 sm:w-40 lg:w-[250px] drop-shadow-2xl"
+                    className="w-52 sm:w-48 lg:w-[300px] drop-shadow-2xl"
                     draggable={false}
                     whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.25 }}
